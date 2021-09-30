@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions
+  targetNamespace="Examples"
+  xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL">
+
+  <process id="ServiceTaskTest.testServiceTaskForceNextWithException">
+
+    <endEvent id="theEnd" name="theEnd"/>
+    <sequenceFlow id="sequenceFlow-service1-service2" sourceRef="service1" targetRef="service2"/>
+
+    <sequenceFlow id="sequenceFlow-service2-service3" sourceRef="service2" targetRef="service3"/>
+    <sequenceFlow id="sequenceFlow-service3-theEnd" sourceRef="service3" targetRef="theEnd"/>
+
+    <sequenceFlow id="sequenceFlow-theStart-service1" sourceRef="theStart" targetRef="service1"/>
+    <serviceTask id="service3" implementation="test3Connector" name="service3"/>
+
+    <serviceTask id="service2" implementation="test2Connector" name="service2"/>
+    <serviceTask id="service1" implementation="test1Connector" name="service1"/>
+
+    <startEvent id="theStart" name="theStart"/>
+
+  </process>
+
+</definitions>
