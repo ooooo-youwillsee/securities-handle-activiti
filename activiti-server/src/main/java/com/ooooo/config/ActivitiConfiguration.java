@@ -1,6 +1,6 @@
 package com.ooooo.config;
 
-import com.ooooo.custom.CustomDefaultServiceTaskBehavior;
+import com.ooooo.activiti.extension.ExtensionDefaultServiceTaskBehavior;
 import org.activiti.runtime.api.connector.DefaultServiceTaskBehavior;
 import org.activiti.runtime.api.connector.IntegrationContextBuilder;
 import org.activiti.runtime.api.impl.VariablesMappingProvider;
@@ -23,7 +23,7 @@ public class ActivitiConfiguration {
 			name = {"defaultServiceTaskBehavior"}
 	)
 	public DefaultServiceTaskBehavior defaultServiceTaskBehavior(ApplicationContext applicationContext, IntegrationContextBuilder integrationContextBuilder, VariablesMappingProvider outboundVariablesProvider) {
-		return new CustomDefaultServiceTaskBehavior(applicationContext, integrationContextBuilder, outboundVariablesProvider);
+		return new ExtensionDefaultServiceTaskBehavior(applicationContext, integrationContextBuilder, outboundVariablesProvider);
 	}
 	
 	

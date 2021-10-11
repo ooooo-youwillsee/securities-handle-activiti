@@ -1,4 +1,4 @@
-package com.ooooo.custom;
+package com.ooooo.activiti.extension;
 
 import com.ooooo.config.ActivitiConfiguration;
 import org.activiti.api.process.model.IntegrationContext;
@@ -12,8 +12,8 @@ import org.activiti.runtime.api.impl.VariablesMappingProvider;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.context.ApplicationContext;
 
-import static com.ooooo.config.ActivitiConfigConstants.SKIP_SERVICE_TASK_KEY;
-import static com.ooooo.config.ActivitiConfigConstants.SKIP_SERVICE_TASK_VALUE;
+import static com.ooooo.constants.ActivitiConfigConstants.SKIP_SERVICE_TASK_KEY;
+import static com.ooooo.constants.ActivitiConfigConstants.SKIP_SERVICE_TASK_VALUE;
 import static org.activiti.runtime.api.impl.MappingExecutionContext.buildMappingExecutionContext;
 
 /**
@@ -22,13 +22,13 @@ import static org.activiti.runtime.api.impl.MappingExecutionContext.buildMapping
  * @see ActivitiConfiguration
  * @since 1.0.0
  */
-public class CustomDefaultServiceTaskBehavior extends DefaultServiceTaskBehavior {
+public class ExtensionDefaultServiceTaskBehavior extends DefaultServiceTaskBehavior {
 	
 	private final ApplicationContext applicationContext;
 	private final IntegrationContextBuilder integrationContextBuilder;
 	private final VariablesMappingProvider outboundVariablesProvider;
 	
-	public CustomDefaultServiceTaskBehavior(ApplicationContext applicationContext, IntegrationContextBuilder integrationContextBuilder, VariablesMappingProvider outboundVariablesProvider) {
+	public ExtensionDefaultServiceTaskBehavior(ApplicationContext applicationContext, IntegrationContextBuilder integrationContextBuilder, VariablesMappingProvider outboundVariablesProvider) {
 		super(applicationContext, integrationContextBuilder, outboundVariablesProvider);
 		this.applicationContext = applicationContext;
 		this.integrationContextBuilder = integrationContextBuilder;

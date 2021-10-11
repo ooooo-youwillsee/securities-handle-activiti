@@ -1,4 +1,4 @@
-package com.ooooo.config;
+package com.ooooo.constants;
 
 /**
  * @author leizhijie

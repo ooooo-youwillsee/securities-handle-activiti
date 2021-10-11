@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.ooooo;
+package com.ooooo.service;
 
 import java.util.Collection;
 import org.slf4j.Logger;
@@ -28,9 +28,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
 
 @Component
-public class SecurityUtil {
+public class SecurityService {
 	
-	private final Logger logger = LoggerFactory.getLogger(SecurityUtil.class);
+	private final Logger logger = LoggerFactory.getLogger(SecurityService.class);
 	
 	@Autowired
 	private UserDetailsService userDetailsService;
