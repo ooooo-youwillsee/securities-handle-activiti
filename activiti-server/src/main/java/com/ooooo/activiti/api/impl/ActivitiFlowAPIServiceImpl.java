@@ -1,17 +1,16 @@
 package com.ooooo.activiti.api.impl;
 
+import com.ooooo.activiti.cmd.CurrentActivityCmd;
+import com.ooooo.activiti.cmd.EndProcessCmd;
+import com.ooooo.activiti.extension.CommandService;
 import com.ooooo.api.FlowAPIService;
 import com.ooooo.api.dto.req.*;
 import com.ooooo.api.dto.resp.*;
-import com.ooooo.api.enums.ActivityType;
+import com.ooooo.dto.Void;
 import lombok.extern.slf4j.Slf4j;
-import org.activiti.bpmn.model.Process;
-import org.activiti.bpmn.model.*;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
-import org.activiti.engine.impl.context.Context;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntity;
-import org.activiti.engine.impl.util.ProcessDefinitionUtil;
 import org.activiti.engine.runtime.Execution;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +32,9 @@ public class ActivitiFlowAPIServiceImpl implements FlowAPIService {
 	@Autowired
 	private TaskService taskService;
 	
+	@Autowired
+	private CommandService commandService;
+	
 	@Override
 	public StartResult start(StartForm form) {
 		ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(form.getProcessDefinitionKey(), form.getVariables());
@@ -44,63 +46,35 @@ public class ActivitiFlowAPIServiceImpl implements FlowAPIService {
 	
 	@Override
 	public CurrentResult current(CurrentForm form) {
-		String processInstanceId = form.getProcessInstanceId();
+		Void activity = commandService.execute(new CurrentActivityCmd(form.getProcessInstanceId()));
+		
 		CurrentResult result = new CurrentResult();
-		
-		// query current
-		ExecutionEntity currentExecution = getExecution(processInstanceId);
-		if (currentExecution == null) {
-			log.warn("current warn!, processInstanceId: {}, 'currentExecution' is null", processInstanceId);
-			result.setActivityType(END_EVENT);
-			return result;
-		}
-		
-		FlowElement currentFlowElement = currentExecution.getCurrentFlowElement();
-		if (currentFlowElement == null) {
-			log.error("current error!, processInstanceId: {}, executionId: {}, activityId: {}", processInstanceId, currentExecution.getId(), currentExecution.getActivityId());
-			throw new IllegalArgumentException("processInstanceId: " + processInstanceId + ", 'currentFlowElement' is null ");
-		}
-		
-		result.setActivityId(currentExecution.getActivityId());
-		result.setActivityType(ActivityType.valueOf(currentFlowElement.getClass().getSimpleName()));
-		
+		result.setActivityId(activity.getActivityId());
+		result.setActivityType(activity.getActivityType());
 		return result;
 	}
 	
 	@Override
 	public NextResult next(NextForm form) {
 		String processInstanceId = form.getProcessInstanceId();
-		NextResult result = new NextResult();
 		
 		// query current
-		ExecutionEntity currentExecution = getExecution(processInstanceId);
-		if (currentExecution == null) {
-			log.warn("next warn!, processInstanceId: {}, 'currentExecution' is null", processInstanceId);
-			result.setActivityType(END_EVENT);
+		Void curActivity = commandService.execute(new CurrentActivityCmd(processInstanceId));
+		
+		if (curActivity.getActivityType().equals(END_EVENT)) {
+			log.warn("next warn!, processInstanceId: {}, activityType: {}", processInstanceId, END_EVENT.getType());
+			NextResult result = new NextResult();
+			result.setActivityId(curActivity.getActivityId());
+			result.setActivityType(curActivity.getActivityType());
 			return result;
 		}
 		
-		FlowElement currentFlowElement = currentExecution.getCurrentFlowElement();
-		if (currentFlowElement == null) {
-			log.error("next error!, processInstanceId: {}, executionId: {}, activityId: {}", processInstanceId, currentExecution.getId(), currentExecution.getActivityId());
-			throw new IllegalArgumentException("processInstanceId: " + processInstanceId + ", 'currentFlowElement' is null ");
-		}
-		
-		// invoke to next activity
-		if (currentFlowElement instanceof ReceiveTask) {
-			runtimeService.trigger(currentExecution.getId(), form.getVariables());
-		} else if (currentFlowElement instanceof ServiceTask) {
-			runtimeService.trigger(currentExecution.getId(), form.getVariables());
-		} else if (currentFlowElement instanceof UserTask) {
-			taskService.complete(currentExecution.getId(), form.getVariables());
-		}
-		
 		// query current, then handle result
-		CurrentResult current = current(new CurrentForm(processInstanceId));
+		Void nextActivity = commandService.execute(new CurrentActivityCmd(processInstanceId));
 		
-		result.setActivityId(current.getActivityId());
-		result.setActivityType(current.getActivityType());
-		
+		NextResult result = new NextResult();
+		result.setActivityId(nextActivity.getActivityId());
+		result.setActivityType(nextActivity.getActivityType());
 		return result;
 	}
 	
@@ -117,24 +91,9 @@ public class ActivitiFlowAPIServiceImpl implements FlowAPIService {
 	
 	@Override
 	public EndResult end(EndForm form) {
-		String processInstanceId = form.getProcessInstanceId();
+		commandService.execute(new EndProcessCmd(form.getProcessInstanceId()));
 		EndResult result = new EndResult();
-		
-		// set the end element for execution
-		ExecutionEntity currentExecution = getExecution(processInstanceId);
-		FlowElement endEventElement = findFlowElement(currentExecution.getProcessDefinitionId(), END_EVENT.getType());
-		currentExecution.setCurrentFlowElement(endEventElement);
-		
-		// continue
-		Context.getAgenda().planContinueProcessOperation(currentExecution);
-		
 		return result;
-	}
-	
-	private FlowElement findFlowElement(String processDefinitionId, String activityId) {
-		Process process = ProcessDefinitionUtil.getProcess(processDefinitionId);
-		FlowElement flowElement = process.getFlowElement(activityId, true);
-		return flowElement;
 	}
 	
 	

@@ -28,4 +28,14 @@ public enum ActivityType {
 		this.type = type;
 	}
 	
+	public static ActivityType of(String type) {
+		for (ActivityType activityType : ActivityType.values()) {
+			if (activityType.getType().equals(type)) {
+				return activityType;
+			}
+		}
+		
+		throw new IllegalArgumentException("type['" + type + "'] was not exist in " + ActivityType.class.getName());
+	}
+	
 }

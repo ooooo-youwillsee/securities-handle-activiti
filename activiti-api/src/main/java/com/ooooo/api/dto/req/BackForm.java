@@ -1,5 +1,6 @@
 package com.ooooo.api.dto.req;
 
+import com.ooooo.api.ImportField;
 import lombok.Data;
 
 /**
@@ -8,4 +9,11 @@ import lombok.Data;
  */
 @Data
 public class BackForm {
+	
+	@ImportField
+	private String processInstanceId;
+	
+	@ImportField
+	private String activityId;
+	
 }
