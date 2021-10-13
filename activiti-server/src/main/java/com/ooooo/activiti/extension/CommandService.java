@@ -6,6 +6,8 @@ import org.activiti.spring.SpringProcessEngineConfiguration;
 import org.springframework.stereotype.Component;
 
 /**
+ * for executing  command
+ *
  * @author leizhijie
  * @since 1.0.0
  */

@@ -20,7 +20,7 @@ public class TestBoundaryEventConfiguration {
 	public Connector test1Connector() {
 		return integrationContext -> {
 			log.info("--- do executing test1Connector ---");
-			int exception_cnt = (int) integrationContext.getInBoundVariables().get("exception_cnt");
+			int exception_cnt = (int) integrationContext.getInBoundVariables().getOrDefault("exception_cnt", 0);
 			
 			int cnt = count.incrementAndGet();
 			if (cnt <= exception_cnt) {

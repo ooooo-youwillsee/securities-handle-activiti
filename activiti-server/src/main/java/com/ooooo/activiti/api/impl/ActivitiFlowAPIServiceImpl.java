@@ -2,17 +2,15 @@ package com.ooooo.activiti.api.impl;
 
 import com.ooooo.activiti.cmd.CurrentActivityCmd;
 import com.ooooo.activiti.cmd.EndProcessCmd;
+import com.ooooo.activiti.cmd.NextActivityCmd;
+import com.ooooo.activiti.cmd.StartProcessCmd;
 import com.ooooo.activiti.extension.CommandService;
 import com.ooooo.api.FlowAPIService;
 import com.ooooo.api.dto.req.*;
 import com.ooooo.api.dto.resp.*;
-import com.ooooo.dto.Void;
+import com.ooooo.dto.ActivityEntity;
+import com.ooooo.dto.ProcessEnitty;
 import lombok.extern.slf4j.Slf4j;
-import org.activiti.engine.RuntimeService;
-import org.activiti.engine.TaskService;
-import org.activiti.engine.impl.persistence.entity.ExecutionEntity;
-import org.activiti.engine.runtime.Execution;
-import org.activiti.engine.runtime.ProcessInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -27,26 +25,24 @@ import static com.ooooo.api.enums.ActivityType.END_EVENT;
 public class ActivitiFlowAPIServiceImpl implements FlowAPIService {
 	
 	@Autowired
-	private RuntimeService runtimeService;
-	
-	@Autowired
-	private TaskService taskService;
-	
-	@Autowired
 	private CommandService commandService;
 	
 	@Override
 	public StartResult start(StartForm form) {
-		ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(form.getProcessDefinitionKey(), form.getVariables());
+		log.info("start, processDefinitionKey: {}", form.getProcessDefinitionKey());
+		
+		ProcessEnitty processEnitty = commandService.execute(new StartProcessCmd(form.getProcessDefinitionKey(), form.getVariables()));
+		
+		log.info("start, processDefinitionKey: {}, processInstanceId: {}", form.getProcessDefinitionKey(), processEnitty.getProcessInstanceId());
 		
 		StartResult result = new StartResult();
-		result.setProcessInstanceId(processInstance.getId());
+		result.setProcessInstanceId(processEnitty.getProcessInstanceId());
 		return result;
 	}
 	
 	@Override
 	public CurrentResult current(CurrentForm form) {
-		Void activity = commandService.execute(new CurrentActivityCmd(form.getProcessInstanceId()));
+		ActivityEntity activity = commandService.execute(new CurrentActivityCmd(form.getProcessInstanceId()));
 		
 		CurrentResult result = new CurrentResult();
 		result.setActivityId(activity.getActivityId());
@@ -58,9 +54,8 @@ public class ActivitiFlowAPIServiceImpl implements FlowAPIService {
 	public NextResult next(NextForm form) {
 		String processInstanceId = form.getProcessInstanceId();
 		
-		// query current
-		Void curActivity = commandService.execute(new CurrentActivityCmd(processInstanceId));
-		
+		// query current activity
+		ActivityEntity curActivity = commandService.execute(new CurrentActivityCmd(processInstanceId));
 		if (curActivity.getActivityType().equals(END_EVENT)) {
 			log.warn("next warn!, processInstanceId: {}, activityType: {}", processInstanceId, END_EVENT.getType());
 			NextResult result = new NextResult();
@@ -69,8 +64,11 @@ public class ActivitiFlowAPIServiceImpl implements FlowAPIService {
 			return result;
 		}
 		
-		// query current, then handle result
-		Void nextActivity = commandService.execute(new CurrentActivityCmd(processInstanceId));
+		// next activity
+		commandService.execute(new NextActivityCmd(processInstanceId, form.getVariables()));
+		
+		// query current activity
+		ActivityEntity nextActivity = commandService.execute(new CurrentActivityCmd(processInstanceId));
 		
 		NextResult result = new NextResult();
 		result.setActivityId(nextActivity.getActivityId());
@@ -86,30 +84,16 @@ public class ActivitiFlowAPIServiceImpl implements FlowAPIService {
 	
 	@Override
 	public BackResult back(BackForm form) {
+		
 		return null;
 	}
 	
 	@Override
 	public EndResult end(EndForm form) {
 		commandService.execute(new EndProcessCmd(form.getProcessInstanceId()));
+		
 		EndResult result = new EndResult();
 		return result;
 	}
-	
-	
-	/**
-	 * 查询 ACT_RU_EXECUTION  表
-	 *
-	 * @param processInstanceId
-	 * @return
-	 */
-	private ExecutionEntity getExecution(String processInstanceId) {
-		Execution execution = runtimeService.createExecutionQuery()
-		                                    .processInstanceId(processInstanceId)
-		                                    .onlyChildExecutions()
-		                                    .singleResult();
-		return (ExecutionEntity) execution;
-	}
-	
 	
 }

@@ -2,15 +2,6 @@
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xmlns="http://maven.apache.org/POM/4.0.0"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <artifactId>activiti-server</artifactId>
-  <build>
-    <plugins>
-      <plugin>
-        <artifactId>spring-boot-maven-plugin</artifactId>
-        <groupId>org.springframework.boot</groupId>
-      </plugin>
-    </plugins>
-  </build>
   <dependencies>
     <dependency>
       <artifactId>activiti-api</artifactId>
@@ -39,8 +30,16 @@
       <scope>test</scope>
     </dependency>
     <dependency>
+      <artifactId>mysql-connector-java</artifactId>
+      <groupId>mysql</groupId>
+    </dependency>
+    <dependency>
       <artifactId>p6spy</artifactId>
       <groupId>p6spy</groupId>
+    </dependency>
+    <dependency>
+      <artifactId>commons-beanutils</artifactId>
+      <groupId>commons-beanutils</groupId>
     </dependency>
     <dependency>
       <artifactId>spring-boot-starter-test</artifactId>
@@ -48,6 +47,8 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
+
+  <artifactId>activiti-server</artifactId>
   <description>activiti-server</description>
   <licenses>
     <license>
@@ -56,11 +57,21 @@
     </license>
   </licenses>
   <modelVersion>4.0.0</modelVersion>
-
   <name>activiti-server</name>
+
+  <build>
+    <plugins>
+      <plugin>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+        <groupId>org.springframework.boot</groupId>
+      </plugin>
+    </plugins>
+  </build>
+
   <parent>
     <artifactId>securities-handle-activiti</artifactId>
     <groupId>com.ooooo</groupId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
+
 </project>

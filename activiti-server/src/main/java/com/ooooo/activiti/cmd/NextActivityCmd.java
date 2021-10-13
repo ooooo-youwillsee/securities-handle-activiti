@@ -1,6 +1,5 @@
 package com.ooooo.activiti.cmd;
 
-import com.ooooo.dto.Void;
 import java.util.List;
 import java.util.Map;
 import lombok.AllArgsConstructor;
@@ -50,7 +49,12 @@ public class NextActivityCmd implements Command<Void> {
 		} else if (element instanceof ServiceTask) {
 			runtimeService.trigger(executionId, variables);
 		} else if (element instanceof UserTask) {
-			taskService.complete(executionId, variables);
+			String taskId = taskService.createTaskQuery()
+			                           .processInstanceId(processInstanceId)
+			                           .executionId(executionId)
+			                           .singleResult()
+			                           .getId();
+			taskService.complete(taskId, variables);
 		}
 		
 		return null;

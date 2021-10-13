@@ -4,30 +4,32 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <artifactId>securities-handle-activiti</artifactId>
   <build>
-    <plugins>
-      <plugin>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <configuration>
-          <optimize>true</optimize>
-          <showDeprecation>true</showDeprecation>
-          <showWarnings>true</showWarnings>
-        </configuration>
-        <groupId>org.apache.maven.plugins</groupId>
-        <version>${maven-compiler-plugin.version}</version>
-      </plugin>
-      <plugin>
-        <artifactId>spring-boot-maven-plugin</artifactId>
-        <executions>
-          <execution>
-            <goals>
-              <goal>repackage</goal>
-            </goals>
-          </execution>
-        </executions>
-        <groupId>org.springframework.boot</groupId>
-        <version>${spring-boot.version}</version>
-      </plugin>
-    </plugins>
+    <pluginManagement>
+      <plugins>
+        <!--        <plugin>-->
+        <!--          <artifactId>maven-compiler-plugin</artifactId>-->
+        <!--          <configuration>-->
+        <!--            <optimize>true</optimize>-->
+        <!--            <showDeprecation>true</showDeprecation>-->
+        <!--            <showWarnings>true</showWarnings>-->
+        <!--          </configuration>-->
+        <!--          <groupId>org.apache.maven.plugins</groupId>-->
+        <!--          <version>${maven-compiler-plugin.version}</version>-->
+        <!--        </plugin>-->
+        <plugin>
+          <artifactId>spring-boot-maven-plugin</artifactId>
+          <executions>
+            <execution>
+              <goals>
+                <goal>repackage</goal>
+              </goals>
+            </execution>
+          </executions>
+          <groupId>org.springframework.boot</groupId>
+          <version>${spring-boot.version}</version>
+        </plugin>
+      </plugins>
+    </pluginManagement>
   </build>
   <dependencyManagement>
     <dependencies>
@@ -70,13 +72,25 @@
         <groupId>com.baomidou</groupId>
         <version>3.4.2</version>
       </dependency>
+
       <dependency>
         <artifactId>lombok</artifactId>
         <groupId>org.projectlombok</groupId>
         <version>1.18.8</version>
       </dependency>
-      <!--   end   -->
 
+      <dependency>
+        <artifactId>mysql-connector-java</artifactId>
+        <groupId>mysql</groupId>
+        <version>8.0.19</version>
+      </dependency>
+
+      <dependency>
+        <artifactId>commons-beanutils</artifactId>
+        <groupId>commons-beanutils</groupId>
+        <version>1.6</version>
+      </dependency>
+      <!--   end   -->
     </dependencies>
   </dependencyManagement>
   <description>securities-handle-activiti</description>
@@ -94,7 +108,17 @@
     <module>activiti-client</module>
   </modules>
   <name>securities-handle-activiti</name>
+
   <packaging>pom</packaging>
+
+
+  <!--  <repositories>-->
+  <!--    <repository>-->
+  <!--      <id>activiti-releases</id>-->
+  <!--      <url>https://artifacts.alfresco.com/nexus/content/repositories/activiti-releases</url>-->
+  <!--    </repository>-->
+  <!--  </repositories>-->
+
   <properties>
     <activiti-dependencies.version>7.1.0.M5</activiti-dependencies.version>
 
@@ -131,10 +155,10 @@
     <maven.compiler.release>${java.release}</maven.compiler.release>
     <maven.compiler.source>${java.version}</maven.compiler.source>
     <maven.compiler.target>${java.version}</maven.compiler.target>
-    <project.version>0.0.1-SNAPSHOT</project.version>
     <spring-boot.version>2.5.3</spring-boot.version>
     <versions-maven-plugin.version>2.8.1</versions-maven-plugin.version>
 
   </properties>
-  <version>${project.version}</version>
+
+  <version>0.0.1-SNAPSHOT</version>
 </project>

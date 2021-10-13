@@ -13,9 +13,12 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import static com.ooooo.api.enums.ActivityType.END_EVENT;
 import static com.ooooo.api.enums.ActivityType.RECEIVE_TASK;
+import static com.ooooo.api.enums.ActivityType.USER_TASK;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 
 /**
@@ -27,6 +30,7 @@ class ActivitiFlowAPIServiceImplTest {
 	
 	private final ThreadLocal<String> processInstanceId = new ThreadLocal<>();
 	private final ThreadLocal<String> processDefinitionKey = new ThreadLocal<>();
+	
 	@Autowired
 	private FlowAPIService flowAPIService;
 	
@@ -55,11 +59,43 @@ class ActivitiFlowAPIServiceImplTest {
 	void next() {
 		start();
 		
-		NextForm form = new NextForm(processInstanceId.get());
-		NextResult result = flowAPIService.next(form);
+		NextResult result = flowAPIService.next(new NextForm(processInstanceId.get()));
+		assertEquals(RECEIVE_TASK, result.getActivityType());
+		assertEquals("waitState2", result.getActivityId());
 		
-		assertNotNull(result.getActivityId());
-		assertNotNull(result.getActivityType());
+		result = flowAPIService.next(new NextForm(processInstanceId.get()));
+		assertEquals(RECEIVE_TASK, result.getActivityType());
+		assertEquals("waitState3", result.getActivityId());
+		
+		// waiting execute serviceTask
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException ignored) {
+		}
+		
+		//result = flowAPIService.next(new NextForm(processInstanceId.get()));
+		//assertEquals(SERVICE_TASK, result.getActivityType());
+		//assertEquals("service1", result.getActivityId());
+		//
+		//result = flowAPIService.next(new NextForm(processInstanceId.get()));
+		//assertEquals(SERVICE_TASK, result.getActivityType());
+		//assertEquals("service2", result.getActivityId());
+		//
+		//result = flowAPIService.next(new NextForm(processInstanceId.get()));
+		//assertEquals(SERVICE_TASK, result.getActivityType());
+		//assertEquals("service3", result.getActivityId());
+		
+		result = flowAPIService.next(new NextForm(processInstanceId.get()));
+		assertEquals(USER_TASK, result.getActivityType());
+		assertEquals("task1", result.getActivityId());
+		
+		result = flowAPIService.next(new NextForm(processInstanceId.get()));
+		assertEquals(USER_TASK, result.getActivityType());
+		assertEquals("task2", result.getActivityId());
+		
+		result = flowAPIService.next(new NextForm(processInstanceId.get()));
+		assertEquals(END_EVENT, result.getActivityType());
+		assertNull(result.getActivityId());
 	}
 	
 	@Test
@@ -74,8 +110,11 @@ class ActivitiFlowAPIServiceImplTest {
 	void end() {
 		start();
 		
-		EndForm form = new EndForm();
-		EndResult result = flowAPIService.end(form);
+		EndResult result = flowAPIService.end(new EndForm(processInstanceId.get()));
+		
+		CurrentResult currentResult = flowAPIService.current(new CurrentForm(processInstanceId.get()));
+		assertEquals(END_EVENT, currentResult.getActivityType());
+		assertNull(currentResult.getActivityId());
 		
 	}
 }

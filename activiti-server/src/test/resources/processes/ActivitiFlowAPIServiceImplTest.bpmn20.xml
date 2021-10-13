@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions id="definitions"
+  xmlns:activiti="http://activiti.org/bpmn"
   targetNamespace="Examples"
   xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL">
 
@@ -9,19 +10,39 @@
 
     <receiveTask id="waitState2" name="Wait State2"/>
 
-    <receiveTask id="waitState3" name="Wait State3"/>
-
     <receiveTask id="waitState1" name="Wait State1"/>
-
-    <sequenceFlow id="flow3" sourceRef="waitState2" targetRef="waitState3"/>
 
     <sequenceFlow id="flow2" sourceRef="waitState1" targetRef="waitState2"/>
 
-    <sequenceFlow id="flow4" sourceRef="waitState3" targetRef="theEnd"/>
+    <receiveTask id="waitState3" name="Wait State3"/>
 
     <sequenceFlow id="flow1" sourceRef="theStart" targetRef="waitState1"/>
 
+    <sequenceFlow id="flow3" sourceRef="waitState2" targetRef="waitState3"/>
+
+    <sequenceFlow id="flow4" sourceRef="waitState3" targetRef="service1"/>
+
+    <sequenceFlow id="flow5" sourceRef="service1" targetRef="service2"/>
+
+    <sequenceFlow id="flow6" sourceRef="service2" targetRef="service3"/>
+
+    <sequenceFlow id="flow7" sourceRef="service3" targetRef="task1"/>
+
+    <sequenceFlow id="flow8" sourceRef="task1" targetRef="task2"/>
+
+    <sequenceFlow id="flow999" sourceRef="task2" targetRef="theEnd"/>
+
+    <serviceTask id="service1" implementation="test1Connector"/>
+
+    <serviceTask id="service2" implementation="test2Connector" activiti:async="false"/>
+
+    <serviceTask id="service3" implementation="test3Connector" activiti:async="false"/>
+
     <startEvent id="theStart"/>
+
+    <userTask id="task1" name="my task1" activiti:candidateUsers="kermit, gonzo"/>
+
+    <userTask id="task2" name="my task2" activiti:candidateUsers="kermit, gonzo"/>
 
   </process>
 

@@ -1,7 +1,7 @@
 package com.ooooo.activiti.cmd;
 
 import com.ooooo.api.enums.ActivityType;
-import com.ooooo.dto.Void;
+import com.ooooo.dto.ActivityEntity;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import org.activiti.bpmn.model.FlowElement;
@@ -18,19 +18,19 @@ import static com.ooooo.api.enums.ActivityType.END_EVENT;
  * @since 1.0.0
  */
 @AllArgsConstructor
-public class CurrentActivityCmd implements Command<Void> {
+public class CurrentActivityCmd implements Command<ActivityEntity> {
 	
 	private final String processInstanceId;
 	
 	@Override
-	public Void execute(CommandContext commandContext) {
-		Void currentActivityEntity = new Void();
+	public ActivityEntity execute(CommandContext commandContext) {
+		ActivityEntity activityEntity = new ActivityEntity();
 		
 		ExecutionEntityManager executionEntityManager = commandContext.getExecutionEntityManager();
 		List<ExecutionEntity> executions = executionEntityManager.findChildExecutionsByProcessInstanceId(processInstanceId);
-		if (executions == null) {
-			currentActivityEntity.setActivityType(END_EVENT);
-			return currentActivityEntity;
+		if (executions == null || executions.isEmpty()) {
+			activityEntity.setActivityType(END_EVENT);
+			return activityEntity;
 		}
 		
 		// current element
@@ -41,9 +41,9 @@ public class CurrentActivityCmd implements Command<Void> {
 		String elementName = StringUtils.uncapitalize(element.getClass().getSimpleName());
 		
 		ActivityType activityType = ActivityType.of(elementName);
-		currentActivityEntity.setActivityType(activityType);
-		currentActivityEntity.setActivityId(execution.getActivityId());
+		activityEntity.setActivityType(activityType);
+		activityEntity.setActivityId(execution.getActivityId());
 		
-		return currentActivityEntity;
+		return activityEntity;
 	}
 }

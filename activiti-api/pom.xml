@@ -2,13 +2,14 @@
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xmlns="http://maven.apache.org/POM/4.0.0"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <artifactId>activiti-api</artifactId>
   <dependencies>
     <dependency>
       <artifactId>lombok</artifactId>
       <groupId>org.projectlombok</groupId>
     </dependency>
   </dependencies>
+
+  <artifactId>activiti-api</artifactId>
   <description>activiti-api</description>
   <licenses>
     <license>
