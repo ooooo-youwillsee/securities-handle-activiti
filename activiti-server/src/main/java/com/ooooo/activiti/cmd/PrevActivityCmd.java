@@ -43,7 +43,8 @@ public class PrevActivityCmd implements Command<Void> {
 		
 		// find last finished activity
 		HistoricActivityInstance lastFinishedActivityInstance = null;
-		for (HistoricActivityInstance historicActivityInstance : historicActivityInstances) {
+		for (int i = historicActivityInstances.size() - 1; i >= 0; i--) {
+			HistoricActivityInstance historicActivityInstance = historicActivityInstances.get(i);
 			if (historicActivityInstance.getEndTime() != null) {
 				lastFinishedActivityInstance = historicActivityInstance;
 				break;

@@ -1,9 +1,6 @@
 package com.ooooo.activiti.api.impl;
 
-import com.ooooo.activiti.cmd.CurrentActivityCmd;
-import com.ooooo.activiti.cmd.EndProcessCmd;
-import com.ooooo.activiti.cmd.NextActivityCmd;
-import com.ooooo.activiti.cmd.StartProcessCmd;
+import com.ooooo.activiti.cmd.*;
 import com.ooooo.activiti.extension.CommandService;
 import com.ooooo.api.FlowAPIService;
 import com.ooooo.api.dto.req.*;
@@ -79,13 +76,23 @@ public class ActivitiFlowAPIServiceImpl implements FlowAPIService {
 	
 	@Override
 	public PrevResult prev(PrevForm form) {
-		return null;
+		// prev activity
+		commandService.execute(new PrevActivityCmd(form.getProcessInstanceId()));
+		// query current activity
+		ActivityEntity curActivity = commandService.execute(new CurrentActivityCmd(form.getProcessInstanceId()));
+		
+		PrevResult result = new PrevResult();
+		result.setActivityId(curActivity.getActivityId());
+		result.setActivityType(curActivity.getActivityType());
+		return result;
 	}
 	
 	@Override
 	public BackResult back(BackForm form) {
+		commandService.execute(new BackActivityCmd(form.getProcessInstanceId(), form.getActivityId()));
 		
-		return null;
+		BackResult result = new BackResult();
+		return result;
 	}
 	
 	@Override

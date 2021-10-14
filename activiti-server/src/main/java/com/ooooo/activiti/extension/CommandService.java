@@ -1,8 +1,8 @@
 package com.ooooo.activiti.extension;
 
 import org.activiti.engine.impl.interceptor.Command;
-import org.activiti.engine.impl.interceptor.CommandExecutor;
 import org.activiti.spring.SpringProcessEngineConfiguration;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
@@ -14,17 +14,11 @@ import org.springframework.stereotype.Component;
 @Component
 public class CommandService {
 	
-	private final CommandExecutor commandExecutor;
-	
-	private final SpringProcessEngineConfiguration springProcessEngineConfiguration;
-	
-	public CommandService(SpringProcessEngineConfiguration springProcessEngineConfiguration) {
-		this.springProcessEngineConfiguration = springProcessEngineConfiguration;
-		this.commandExecutor = springProcessEngineConfiguration.getCommandExecutor();
-	}
+	@Autowired
+	private SpringProcessEngineConfiguration springProcessEngineConfiguration;
 	
 	public <T> T execute(Command<T> command) {
-		return commandExecutor.execute(command);
+		return springProcessEngineConfiguration.getCommandExecutor().execute(command);
 	}
 	
 }

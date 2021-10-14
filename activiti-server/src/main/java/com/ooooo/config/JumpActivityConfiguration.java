@@ -38,13 +38,11 @@ public class JumpActivityConfiguration {
 			
 			if (sourceFlowElement instanceof FlowNode) {
 				FlowNode sourceFlowNode = (FlowNode) sourceFlowElement;
-				
-				List<SequenceFlow> outgoingFlows = sourceFlowNode.getOutgoingFlows();
-				outgoingFlows.clear();
-				
 				List<ExtensionAttribute> extensionAttributes = sourceFlowNode.getAttributes().remove(OUTGOING_FLOWS);
 				
 				if (extensionAttributes != null) {
+					List<SequenceFlow> outgoingFlows = sourceFlowNode.getOutgoingFlows();
+					outgoingFlows.clear();
 					extensionAttributes.forEach(extensionAttribute -> {
 						String sequenceFlowId = extensionAttribute.getValue();
 						SequenceFlow sequenceFlowElement = (SequenceFlow) processService.getFlowElement(processDefinitionId, sequenceFlowId);

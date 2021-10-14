@@ -11,9 +11,11 @@ import org.activiti.bpmn.model.FlowNode;
 import org.activiti.bpmn.model.SequenceFlow;
 import org.activiti.engine.impl.interceptor.Command;
 import org.activiti.engine.impl.interceptor.CommandContext;
+import org.activiti.engine.impl.interceptor.CommandExecutor;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntity;
 import org.apache.commons.lang3.RandomStringUtils;
 
+import static com.ooooo.activiti.cmd.CommonContextHelper.getCommandExecutor;
 import static com.ooooo.activiti.cmd.CommonContextHelper.getExecutionEntities;
 import static com.ooooo.activiti.cmd.CommonContextHelper.getFlowElement;
 import static com.ooooo.config.JumpActivityConfiguration.OUTGOING_FLOWS;
@@ -67,7 +69,9 @@ public class JumpActivityCmd implements Command<Void> {
 			outgoingFlows.clear();
 			outgoingFlows.add(targetIncomingSequenceFlow);
 			
-			commandContext.getAgenda().planTakeOutgoingSequenceFlowsOperation(curExecution, true);
+			// next activity
+			CommandExecutor commandExecutor = getCommandExecutor(commandContext);
+			commandExecutor.execute(new NextActivityCmd(processInstanceId, null));
 		}
 		
 		return null;

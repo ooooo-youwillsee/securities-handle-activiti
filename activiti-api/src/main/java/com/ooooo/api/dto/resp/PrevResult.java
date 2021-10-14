@@ -1,5 +1,7 @@
 package com.ooooo.api.dto.resp;
 
+import com.ooooo.api.ImportField;
+import com.ooooo.api.enums.ActivityType;
 import lombok.Data;
 
 /**
@@ -9,5 +11,9 @@ import lombok.Data;
 @Data
 public class PrevResult {
 	
+	@ImportField
 	private String activityId;
+	
+	@ImportField
+	private ActivityType activityType;
 }
