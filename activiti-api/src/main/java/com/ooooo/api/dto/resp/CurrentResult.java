@@ -1,7 +1,7 @@
 package com.ooooo.api.dto.resp;
 
-import com.ooooo.api.ImportField;
-import com.ooooo.api.enums.ActivityType;
+import com.ooooo.common.annotation.ImportantField;
+import com.ooooo.common.enums.ActivityType;
 import lombok.Data;
 
 /**
@@ -11,9 +11,9 @@ import lombok.Data;
 @Data
 public class CurrentResult {
 	
-	@ImportField
+	@ImportantField
 	private String activityId;
 	
-	@ImportField
+	@ImportantField
 	private ActivityType activityType;
 }

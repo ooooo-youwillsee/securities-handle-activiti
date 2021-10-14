@@ -1,6 +1,6 @@
 package com.ooooo.api;
 
-import com.ooooo.api.event.ActivityEvent;
+import com.ooooo.common.event.ActivityEvent;
 
 /**
  * @author leizhijie

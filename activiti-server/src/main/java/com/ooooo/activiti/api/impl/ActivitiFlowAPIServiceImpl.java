@@ -1,7 +1,7 @@
 package com.ooooo.activiti.api.impl;
 
 import com.ooooo.activiti.cmd.*;
-import com.ooooo.activiti.extension.CommandService;
+import com.ooooo.activiti.service.CommandService;
 import com.ooooo.api.FlowAPIService;
 import com.ooooo.api.dto.req.*;
 import com.ooooo.api.dto.resp.*;
@@ -11,7 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import static com.ooooo.api.enums.ActivityType.END_EVENT;
+import static com.ooooo.common.enums.ActivityType.END_EVENT;
 
 /**
  * @author leizhijie

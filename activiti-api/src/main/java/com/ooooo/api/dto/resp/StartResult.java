@@ -1,6 +1,6 @@
 package com.ooooo.api.dto.resp;
 
-import com.ooooo.api.ImportField;
+import com.ooooo.common.annotation.ImportantField;
 import lombok.Data;
 
 /**
@@ -10,7 +10,7 @@ import lombok.Data;
 @Data
 public class StartResult {
 	
-	@ImportField
+	@ImportantField
 	private String processInstanceId;
 	
 }

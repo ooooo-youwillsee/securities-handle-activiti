@@ -1,6 +1,6 @@
 package com.ooooo.activiti.cmd;
 
-import com.ooooo.api.enums.ActivityType;
+import com.ooooo.common.enums.ActivityType;
 import com.ooooo.dto.ActivityEntity;
 import java.util.List;
 import lombok.AllArgsConstructor;
@@ -11,7 +11,7 @@ import org.activiti.engine.impl.persistence.entity.ExecutionEntity;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntityManager;
 import org.apache.commons.lang3.StringUtils;
 
-import static com.ooooo.api.enums.ActivityType.END_EVENT;
+import static com.ooooo.common.enums.ActivityType.END_EVENT;
 
 /**
  * @author leizhijie

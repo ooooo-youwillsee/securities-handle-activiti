@@ -1,6 +1,6 @@
 package com.ooooo.api.dto.req;
 
-import com.ooooo.api.ImportField;
+import com.ooooo.common.annotation.ImportantField;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -12,7 +12,7 @@ import lombok.Data;
 @AllArgsConstructor
 public class PrevForm {
 	
-	@ImportField
+	@ImportantField
 	private String processInstanceId;
 	
 }

@@ -1,6 +1,6 @@
 package com.ooooo.api.dto.req;
 
-import com.ooooo.api.ImportField;
+import com.ooooo.common.annotation.ImportantField;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,10 +14,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class BackForm {
 	
-	@ImportField
+	@ImportantField
 	private String processInstanceId;
 	
-	@ImportField
+	@ImportantField
 	private String activityId;
 	
 }

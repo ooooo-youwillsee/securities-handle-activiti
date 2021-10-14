@@ -1,6 +1,6 @@
 package com.ooooo.dto;
 
-import com.ooooo.api.enums.ActivityType;
+import com.ooooo.common.enums.ActivityType;
 import lombok.Data;
 
 /**

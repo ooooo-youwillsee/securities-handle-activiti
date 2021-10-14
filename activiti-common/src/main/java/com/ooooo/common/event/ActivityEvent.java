@@ -1,6 +1,6 @@
-package com.ooooo.api.event;
+package com.ooooo.common.event;
 
-import com.ooooo.api.ImportField;
+import com.ooooo.common.annotation.ImportantField;
 import lombok.Data;
 
 /**
@@ -10,9 +10,9 @@ import lombok.Data;
 @Data
 public class ActivityEvent {
 	
-	@ImportField
+	@ImportantField
 	private String processInstanceId;
 	
-	@ImportField
+	@ImportantField
 	private String activityId;
 }

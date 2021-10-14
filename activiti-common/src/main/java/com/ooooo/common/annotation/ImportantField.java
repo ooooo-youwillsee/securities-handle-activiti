@@ -1,4 +1,4 @@
-package com.ooooo.api;
+package com.ooooo.common.annotation;
 
 import java.lang.annotation.*;
 
@@ -9,5 +9,5 @@ import java.lang.annotation.*;
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-public @interface ImportField {
+public @interface ImportantField {
 }

@@ -1,6 +1,6 @@
 package com.ooooo.activiti.cmd;
 
-import com.ooooo.activiti.extension.CommandService;
+import com.ooooo.activiti.service.CommandService;
 import java.util.List;
 import org.activiti.bpmn.model.FlowElement;
 import org.activiti.bpmn.model.Process;

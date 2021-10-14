@@ -1,7 +1,7 @@
 package com.ooooo.config;
 
 import com.ooooo.activiti.cmd.JumpActivityCmd;
-import com.ooooo.activiti.extension.ProcessService;
+import com.ooooo.activiti.service.ProcessService;
 import java.util.List;
 import org.activiti.api.process.model.BPMNSequenceFlow;
 import org.activiti.api.process.model.events.BPMNSequenceFlowTakenEvent;

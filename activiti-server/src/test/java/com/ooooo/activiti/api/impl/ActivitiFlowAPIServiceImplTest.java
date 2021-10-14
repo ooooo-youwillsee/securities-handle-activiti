@@ -7,9 +7,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import static com.ooooo.api.enums.ActivityType.END_EVENT;
-import static com.ooooo.api.enums.ActivityType.RECEIVE_TASK;
-import static com.ooooo.api.enums.ActivityType.USER_TASK;
+import static com.ooooo.common.enums.ActivityType.END_EVENT;
+import static com.ooooo.common.enums.ActivityType.RECEIVE_TASK;
+import static com.ooooo.common.enums.ActivityType.USER_TASK;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;

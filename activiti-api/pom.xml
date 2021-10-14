@@ -7,6 +7,10 @@
       <artifactId>lombok</artifactId>
       <groupId>org.projectlombok</groupId>
     </dependency>
+    <dependency>
+      <artifactId>activiti-common</artifactId>
+      <groupId>com.ooooo</groupId>
+    </dependency>
   </dependencies>
 
   <artifactId>activiti-api</artifactId>
@@ -19,6 +23,7 @@
   </licenses>
   <modelVersion>4.0.0</modelVersion>
   <name>activiti-api</name>
+  <packaging>jar</packaging>
 
   <parent>
     <artifactId>securities-handle-activiti</artifactId>
