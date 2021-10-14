@@ -1,4 +1,4 @@
-package com.ooooo.activiti.extension;
+package com.ooooo.activiti.service;
 
 import org.activiti.engine.impl.interceptor.Command;
 import org.activiti.spring.SpringProcessEngineConfiguration;

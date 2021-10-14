@@ -1,4 +1,4 @@
-package com.ooooo.service;
+package com.ooooo.activiti.service;
 
 import java.util.HashMap;
 import java.util.Map;
