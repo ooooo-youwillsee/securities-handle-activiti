@@ -99,7 +99,6 @@
       </dependency>
 
       <!--   start -->
-
       <dependency>
         <artifactId>p6spy</artifactId>
         <groupId>p6spy</groupId>
@@ -128,6 +127,12 @@
         <artifactId>commons-beanutils</artifactId>
         <groupId>commons-beanutils</groupId>
         <version>1.6</version>
+      </dependency>
+
+      <dependency>
+        <groupId>com.squareup.okhttp3</groupId>
+        <artifactId>okhttp</artifactId>
+        <version>${okhttp.version}</version>
       </dependency>
       <!--   end   -->
     </dependencies>
@@ -216,5 +221,7 @@
     <versions-maven-plugin.version>2.8.1</versions-maven-plugin.version>
     <spring-cloud-alibaba-dependencies.version>2.2.5.RELEASE</spring-cloud-alibaba-dependencies.version>
     <spring.cloud.version>Hoxton.SR9</spring.cloud.version>
+    <okhttp.version>5.0.0-alpha.2</okhttp.version>
+
   </properties>
 </project>

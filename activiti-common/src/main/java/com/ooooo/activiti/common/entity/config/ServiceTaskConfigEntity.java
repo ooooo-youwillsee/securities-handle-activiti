@@ -1,7 +1,9 @@
 package com.ooooo.activiti.common.entity.config;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import static com.ooooo.activiti.common.entity.config.ServiceTaskConfigEntity.ServiceType.DUBBO;
 import static com.ooooo.activiti.common.entity.config.ServiceTaskConfigEntity.ServiceType.HTTP;
@@ -12,6 +14,8 @@ import static com.ooooo.activiti.common.entity.config.ServiceTaskConfigEntity.Se
  * @since 1.0.0
  */
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class ServiceTaskConfigEntity {
 	
 	private String activityId;
@@ -22,9 +26,13 @@ public class ServiceTaskConfigEntity {
 	 */
 	private String url;
 	
-	
 	private ServiceType serviceType;
 	
+	
+	public ServiceTaskConfigEntity(String activityId, String url) {
+		this.activityId = activityId;
+		this.url = url;
+	}
 	
 	public ServiceType getServiceType() {
 		if (url == null || url.trim().isEmpty()) {

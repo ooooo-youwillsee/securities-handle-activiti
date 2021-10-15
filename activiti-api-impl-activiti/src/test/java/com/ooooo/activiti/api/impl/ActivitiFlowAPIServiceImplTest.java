@@ -42,7 +42,7 @@ class ActivitiFlowAPIServiceImplTest {
 		processDefinitionKey.set("ActivitiFlowAPIServiceImplTest");
 		
 		StartProcessForm form = new StartProcessForm(processDefinitionKey.get());
-		StartProcessResult result = flowAPIService.start(form);
+		StartProcessResult result = flowAPIService.startProcess(form);
 		
 		assertNotNull(result.getProcessInstanceId());
 		processInstanceId.set(result.getProcessInstanceId());
@@ -52,7 +52,7 @@ class ActivitiFlowAPIServiceImplTest {
 	void current() {
 		start();
 		CurrentActivityForm form = new CurrentActivityForm(processInstanceId.get());
-		CurrentActivityResult result = flowAPIService.current(form);
+		CurrentActivityResult result = flowAPIService.currentActivity(form);
 		
 		assertEquals(RECEIVE_TASK, result.getActivityType());
 		assertEquals("waitState1", result.getActivityId());
@@ -62,15 +62,15 @@ class ActivitiFlowAPIServiceImplTest {
 	void next() {
 		start();
 		
-		CurrentActivityResult currentResult = flowAPIService.current(new CurrentActivityForm(processInstanceId.get()));
+		CurrentActivityResult currentResult = flowAPIService.currentActivity(new CurrentActivityForm(processInstanceId.get()));
 		assertEquals(RECEIVE_TASK, currentResult.getActivityType());
 		assertEquals("waitState1", currentResult.getActivityId());
 		
-		NextActivityResult nextResult = flowAPIService.next(new NextActivityForm(processInstanceId.get()));
+		NextActivityResult nextResult = flowAPIService.nextActivity(new NextActivityForm(processInstanceId.get()));
 		assertEquals(RECEIVE_TASK, nextResult.getActivityType());
 		assertEquals("waitState2", nextResult.getActivityId());
 		
-		nextResult = flowAPIService.next(new NextActivityForm(processInstanceId.get()));
+		nextResult = flowAPIService.nextActivity(new NextActivityForm(processInstanceId.get()));
 		assertEquals(RECEIVE_TASK, nextResult.getActivityType());
 		assertEquals("waitState3", nextResult.getActivityId());
 		
@@ -86,15 +86,15 @@ class ActivitiFlowAPIServiceImplTest {
 		//assertEquals(SERVICE_TASK, result.getActivityType());
 		//assertEquals("service3", result.getActivityId());
 		
-		nextResult = flowAPIService.next(new NextActivityForm(processInstanceId.get()));
+		nextResult = flowAPIService.nextActivity(new NextActivityForm(processInstanceId.get()));
 		assertEquals(USER_TASK, nextResult.getActivityType());
 		assertEquals("task1", nextResult.getActivityId());
 		
-		nextResult = flowAPIService.next(new NextActivityForm(processInstanceId.get()));
+		nextResult = flowAPIService.nextActivity(new NextActivityForm(processInstanceId.get()));
 		assertEquals(USER_TASK, nextResult.getActivityType());
 		assertEquals("task2", nextResult.getActivityId());
 		
-		nextResult = flowAPIService.next(new NextActivityForm(processInstanceId.get()));
+		nextResult = flowAPIService.nextActivity(new NextActivityForm(processInstanceId.get()));
 		assertEquals(END_EVENT, nextResult.getActivityType());
 		assertNull(nextResult.getActivityId());
 	}
@@ -103,49 +103,49 @@ class ActivitiFlowAPIServiceImplTest {
 	void prev() {
 		start();
 		
-		CurrentActivityResult currentResult = flowAPIService.current(new CurrentActivityForm(processInstanceId.get()));
+		CurrentActivityResult currentResult = flowAPIService.currentActivity(new CurrentActivityForm(processInstanceId.get()));
 		assertEquals(RECEIVE_TASK, currentResult.getActivityType());
 		assertEquals("waitState1", currentResult.getActivityId());
 		
-		NextActivityResult nextResult = flowAPIService.next(new NextActivityForm(processInstanceId.get()));
+		NextActivityResult nextResult = flowAPIService.nextActivity(new NextActivityForm(processInstanceId.get()));
 		assertEquals(RECEIVE_TASK, nextResult.getActivityType());
 		assertEquals("waitState2", nextResult.getActivityId());
 		
-		nextResult = flowAPIService.next(new NextActivityForm(processInstanceId.get()));
+		nextResult = flowAPIService.nextActivity(new NextActivityForm(processInstanceId.get()));
 		assertEquals(RECEIVE_TASK, nextResult.getActivityType());
 		assertEquals("waitState3", nextResult.getActivityId());
 		
 		for (int i = 0; i < 5; i++) {
 			// prev
-			PrevActivityResult prevResult = flowAPIService.prev(new PrevActivityForm(processInstanceId.get()));
+			PrevActivityResult prevResult = flowAPIService.prevActivity(new PrevActivityForm(processInstanceId.get()));
 			assertEquals(RECEIVE_TASK, prevResult.getActivityType());
 			assertEquals("waitState2", prevResult.getActivityId());
 			
-			nextResult = flowAPIService.next(new NextActivityForm(processInstanceId.get()));
+			nextResult = flowAPIService.nextActivity(new NextActivityForm(processInstanceId.get()));
 			assertEquals(RECEIVE_TASK, nextResult.getActivityType());
 			assertEquals("waitState3", nextResult.getActivityId());
 		}
 		
-		nextResult = flowAPIService.next(new NextActivityForm(processInstanceId.get()));
+		nextResult = flowAPIService.nextActivity(new NextActivityForm(processInstanceId.get()));
 		assertEquals(USER_TASK, nextResult.getActivityType());
 		assertEquals("task1", nextResult.getActivityId());
 		
 		for (int i = 0; i < 5; i++) {
-			nextResult = flowAPIService.next(new NextActivityForm(processInstanceId.get()));
+			nextResult = flowAPIService.nextActivity(new NextActivityForm(processInstanceId.get()));
 			assertEquals(USER_TASK, nextResult.getActivityType());
 			assertEquals("task2", nextResult.getActivityId());
 			
 			// prev
-			PrevActivityResult prevResult = flowAPIService.prev(new PrevActivityForm(processInstanceId.get()));
+			PrevActivityResult prevResult = flowAPIService.prevActivity(new PrevActivityForm(processInstanceId.get()));
 			assertEquals(USER_TASK, prevResult.getActivityType());
 			assertEquals("task1", prevResult.getActivityId());
 		}
 		
 		// end
-		flowAPIService.end(new EndProcessForm(processInstanceId.get()));
+		flowAPIService.endProcess(new EndProcessForm(processInstanceId.get()));
 		
 		// current
-		currentResult = flowAPIService.current(new CurrentActivityForm(processInstanceId.get()));
+		currentResult = flowAPIService.currentActivity(new CurrentActivityForm(processInstanceId.get()));
 		assertEquals(END_EVENT, currentResult.getActivityType());
 		assertNull(currentResult.getActivityId());
 	}
@@ -156,31 +156,31 @@ class ActivitiFlowAPIServiceImplTest {
 		
 		for (int i = 0; i < 5; i++) {
 			
-			CurrentActivityResult currentResult = flowAPIService.current(new CurrentActivityForm(processInstanceId.get()));
+			CurrentActivityResult currentResult = flowAPIService.currentActivity(new CurrentActivityForm(processInstanceId.get()));
 			assertEquals(RECEIVE_TASK, currentResult.getActivityType());
 			assertEquals("waitState1", currentResult.getActivityId());
 			
-			NextActivityResult nextResult = flowAPIService.next(new NextActivityForm(processInstanceId.get()));
+			NextActivityResult nextResult = flowAPIService.nextActivity(new NextActivityForm(processInstanceId.get()));
 			assertEquals(RECEIVE_TASK, nextResult.getActivityType());
 			assertEquals("waitState2", nextResult.getActivityId());
 			
-			nextResult = flowAPIService.next(new NextActivityForm(processInstanceId.get()));
+			nextResult = flowAPIService.nextActivity(new NextActivityForm(processInstanceId.get()));
 			assertEquals(RECEIVE_TASK, nextResult.getActivityType());
 			assertEquals("waitState3", nextResult.getActivityId());
 			
-			nextResult = flowAPIService.next(new NextActivityForm(processInstanceId.get()));
+			nextResult = flowAPIService.nextActivity(new NextActivityForm(processInstanceId.get()));
 			assertEquals(USER_TASK, nextResult.getActivityType());
 			assertEquals("task1", nextResult.getActivityId());
 			
 			// back
-			flowAPIService.back(new BackProcessForm(processInstanceId.get(), "waitState1"));
+			flowAPIService.backActivity(new BackProcessForm(processInstanceId.get(), "waitState1"));
 		}
 		
 		// end
-		flowAPIService.end(new EndProcessForm(processInstanceId.get()));
+		flowAPIService.endProcess(new EndProcessForm(processInstanceId.get()));
 		
 		// current
-		CurrentActivityResult currentResult = flowAPIService.current(new CurrentActivityForm(processInstanceId.get()));
+		CurrentActivityResult currentResult = flowAPIService.currentActivity(new CurrentActivityForm(processInstanceId.get()));
 		assertEquals(END_EVENT, currentResult.getActivityType());
 		assertNull(currentResult.getActivityId());
 	}
@@ -189,9 +189,9 @@ class ActivitiFlowAPIServiceImplTest {
 	void end() {
 		start();
 		
-		EndProcessResult result = flowAPIService.end(new EndProcessForm(processInstanceId.get()));
+		EndProcessResult result = flowAPIService.endProcess(new EndProcessForm(processInstanceId.get()));
 		
-		CurrentActivityResult currentResult = flowAPIService.current(new CurrentActivityForm(processInstanceId.get()));
+		CurrentActivityResult currentResult = flowAPIService.currentActivity(new CurrentActivityForm(processInstanceId.get()));
 		assertEquals(END_EVENT, currentResult.getActivityType());
 		assertNull(currentResult.getActivityId());
 	}

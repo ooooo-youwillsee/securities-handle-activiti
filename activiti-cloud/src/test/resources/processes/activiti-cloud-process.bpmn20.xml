@@ -4,7 +4,7 @@
   targetNamespace="Examples"
   xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL">
 
-  <process id="ActivitiFlowAPIServiceImplTest">
+  <process id="activiti-cloud-process">
 
     <startEvent id="theStart"/>
 
@@ -43,7 +43,6 @@
     <sequenceFlow id="flow999" sourceRef="task2" targetRef="theEnd"/>
 
     <endEvent id="theEnd"/>
-
   </process>
 
 </definitions>

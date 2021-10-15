@@ -40,7 +40,7 @@ public class ActivitiFlowAPIServiceImpl implements FlowAPIService {
 	private CommandService commandService;
 	
 	@Override
-	public StartProcessResult start(StartProcessForm form) {
+	public StartProcessResult startProcess(StartProcessForm form) {
 		log.info("start, processDefinitionKey: {}", form.getProcessDefinitionKey());
 		
 		ProcessEnitty processEnitty = commandService.execute(new StartProcessCmd(form.getProcessDefinitionKey(), form.getVariables()));
@@ -53,7 +53,7 @@ public class ActivitiFlowAPIServiceImpl implements FlowAPIService {
 	}
 	
 	@Override
-	public CurrentActivityResult current(CurrentActivityForm form) {
+	public CurrentActivityResult currentActivity(CurrentActivityForm form) {
 		ActivityEntity activity = commandService.execute(new CurrentActivityCmd(form.getProcessInstanceId()));
 		
 		CurrentActivityResult result = new CurrentActivityResult();
@@ -63,7 +63,7 @@ public class ActivitiFlowAPIServiceImpl implements FlowAPIService {
 	}
 	
 	@Override
-	public NextActivityResult next(NextActivityForm form) {
+	public NextActivityResult nextActivity(NextActivityForm form) {
 		String processInstanceId = form.getProcessInstanceId();
 		
 		// query current activity
@@ -90,7 +90,7 @@ public class ActivitiFlowAPIServiceImpl implements FlowAPIService {
 	
 	
 	@Override
-	public PrevActivityResult prev(PrevActivityForm form) {
+	public PrevActivityResult prevActivity(PrevActivityForm form) {
 		// prev activity
 		commandService.execute(new PrevActivityCmd(form.getProcessInstanceId()));
 		// query current activity
@@ -103,7 +103,7 @@ public class ActivitiFlowAPIServiceImpl implements FlowAPIService {
 	}
 	
 	@Override
-	public BackActivityResult back(BackProcessForm form) {
+	public BackActivityResult backActivity(BackProcessForm form) {
 		commandService.execute(new BackActivityCmd(form.getProcessInstanceId(), form.getActivityId()));
 		
 		BackActivityResult result = new BackActivityResult();
@@ -111,7 +111,7 @@ public class ActivitiFlowAPIServiceImpl implements FlowAPIService {
 	}
 	
 	@Override
-	public EndProcessResult end(EndProcessForm form) {
+	public EndProcessResult endProcess(EndProcessForm form) {
 		commandService.execute(new EndProcessCmd(form.getProcessInstanceId()));
 		
 		EndProcessResult result = new EndProcessResult();

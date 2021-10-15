@@ -25,7 +25,7 @@ public interface FlowAPIService {
 	 * @param form
 	 * @return
 	 */
-	StartProcessResult start(StartProcessForm form);
+	StartProcessResult startProcess(StartProcessForm form);
 	
 	
 	/**
@@ -34,7 +34,7 @@ public interface FlowAPIService {
 	 * @param form
 	 * @return
 	 */
-	CurrentActivityResult current(CurrentActivityForm form);
+	CurrentActivityResult currentActivity(CurrentActivityForm form);
 	
 	/**
 	 * 流程下一步
@@ -42,7 +42,7 @@ public interface FlowAPIService {
 	 * @param form
 	 * @return
 	 */
-	NextActivityResult next(NextActivityForm form);
+	NextActivityResult nextActivity(NextActivityForm form);
 	
 	/**
 	 * 流程上一步
@@ -50,7 +50,7 @@ public interface FlowAPIService {
 	 * @param form
 	 * @return
 	 */
-	PrevActivityResult prev(PrevActivityForm form);
+	PrevActivityResult prevActivity(PrevActivityForm form);
 	
 	/**
 	 * 打回流程
@@ -58,7 +58,7 @@ public interface FlowAPIService {
 	 * @param form
 	 * @return
 	 */
-	BackActivityResult back(BackProcessForm form);
+	BackActivityResult backActivity(BackProcessForm form);
 	
 	/**
 	 * 结束流程
@@ -66,5 +66,5 @@ public interface FlowAPIService {
 	 * @param form
 	 * @return
 	 */
-	EndProcessResult end(EndProcessForm form);
+	EndProcessResult endProcess(EndProcessForm form);
 }
