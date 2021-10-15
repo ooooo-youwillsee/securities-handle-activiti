@@ -3,8 +3,24 @@
   xmlns="http://maven.apache.org/POM/4.0.0"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <artifactId>securities-handle-activiti</artifactId>
+  <description>securities-handle-activiti</description>
+  <groupId>com.ooooo</groupId>
+  <licenses>
+    <license>
+      <name>Apache License, Version 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0</url>
+    </license>
+  </licenses>
+  <modelVersion>4.0.0</modelVersion>
   <dependencyManagement>
     <dependencies>
+      <dependency>
+        <artifactId>spring-cloud-dependencies</artifactId>
+        <groupId>org.springframework.cloud</groupId>
+        <scope>import</scope>
+        <type>pom</type>
+        <version>${spring.cloud.version}</version>
+      </dependency>
       <dependency>
         <artifactId>spring-boot-dependencies</artifactId>
         <groupId>org.springframework.boot</groupId>
@@ -18,6 +34,13 @@
         <scope>import</scope>
         <type>pom</type>
         <version>${activiti-dependencies.version}</version>
+      </dependency>
+      <dependency>
+        <artifactId>spring-cloud-alibaba-dependencies</artifactId>
+        <groupId>com.alibaba.cloud</groupId>
+        <scope>import</scope>
+        <type>pom</type>
+        <version>${spring-cloud-alibaba-dependencies.version}</version>
       </dependency>
       <dependency>
         <artifactId>activiti-spring-boot-starter</artifactId>
@@ -37,6 +60,16 @@
       </dependency>
       <dependency>
         <artifactId>activiti-client</artifactId>
+        <groupId>com.ooooo</groupId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <artifactId>activiti-cloud</artifactId>
+        <groupId>com.ooooo</groupId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <artifactId>activiti-server</artifactId>
         <groupId>com.ooooo</groupId>
         <version>${project.version}</version>
       </dependency>
@@ -75,21 +108,6 @@
       <!--   end   -->
     </dependencies>
   </dependencyManagement>
-  <description>securities-handle-activiti</description>
-  <groupId>com.ooooo</groupId>
-  <licenses>
-    <license>
-      <name>Apache License, Version 2.0</name>
-      <url>http://www.apache.org/licenses/LICENSE-2.0</url>
-    </license>
-  </licenses>
-  <modelVersion>4.0.0</modelVersion>
-  <modules>
-    <module>activiti-common</module>
-    <module>activiti-server</module>
-    <module>activiti-api</module>
-    <module>activiti-client</module>
-  </modules>
   <name>securities-handle-activiti</name>
 
   <packaging>pom</packaging>
@@ -100,6 +118,45 @@
   <!--      <url>https://artifacts.alfresco.com/nexus/content/repositories/activiti-releases</url>-->
   <!--    </repository>-->
   <!--  </repositories>-->
+
+  <modules>
+    <module>activiti-common</module>
+    <module>activiti-api</module>
+    <module>activiti-client</module>
+    <module>activiti-server</module>
+    <module>activiti-cloud</module>
+  </modules>
+
+  <build>
+    <pluginManagement>
+      <plugins>
+        <!--        <plugin>-->
+        <!--          <artifactId>maven-compiler-plugin</artifactId>-->
+        <!--          <configuration>-->
+        <!--            <optimize>true</optimize>-->
+        <!--            <showDeprecation>true</showDeprecation>-->
+        <!--            <showWarnings>true</showWarnings>-->
+        <!--          </configuration>-->
+        <!--          <groupId>org.apache.maven.plugins</groupId>-->
+        <!--          <version>${maven-compiler-plugin.version}</version>-->
+        <!--        </plugin>-->
+        <plugin>
+          <artifactId>spring-boot-maven-plugin</artifactId>
+          <executions>
+            <execution>
+              <goals>
+                <goal>repackage</goal>
+              </goals>
+            </execution>
+          </executions>
+          <groupId>org.springframework.boot</groupId>
+          <version>${spring-boot.version}</version>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+  </build>
+
+  <version>0.0.1-SNAPSHOT</version>
 
   <properties>
     <activiti-dependencies.version>7.1.0.M5</activiti-dependencies.version>
@@ -140,36 +197,7 @@
     <project.version>0.0.1-SNAPSHOT</project.version>
     <spring-boot.version>2.5.3</spring-boot.version>
     <versions-maven-plugin.version>2.8.1</versions-maven-plugin.version>
+    <spring-cloud-alibaba-dependencies.version>2.2.5.RELEASE</spring-cloud-alibaba-dependencies.version>
+    <spring.cloud.version>Hoxton.SR9</spring.cloud.version>
   </properties>
-
-  <build>
-    <pluginManagement>
-      <plugins>
-        <!--        <plugin>-->
-        <!--          <artifactId>maven-compiler-plugin</artifactId>-->
-        <!--          <configuration>-->
-        <!--            <optimize>true</optimize>-->
-        <!--            <showDeprecation>true</showDeprecation>-->
-        <!--            <showWarnings>true</showWarnings>-->
-        <!--          </configuration>-->
-        <!--          <groupId>org.apache.maven.plugins</groupId>-->
-        <!--          <version>${maven-compiler-plugin.version}</version>-->
-        <!--        </plugin>-->
-        <plugin>
-          <artifactId>spring-boot-maven-plugin</artifactId>
-          <executions>
-            <execution>
-              <goals>
-                <goal>repackage</goal>
-              </goals>
-            </execution>
-          </executions>
-          <groupId>org.springframework.boot</groupId>
-          <version>${spring-boot.version}</version>
-        </plugin>
-      </plugins>
-    </pluginManagement>
-  </build>
-
-  <version>0.0.1-SNAPSHOT</version>
 </project>

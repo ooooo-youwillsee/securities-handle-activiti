@@ -2,14 +2,24 @@
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xmlns="http://maven.apache.org/POM/4.0.0"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <artifactId>activiti-cloud</artifactId>
+
+  <build>
+    <plugins>
+      <plugin>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+        <groupId>org.springframework.boot</groupId>
+      </plugin>
+    </plugins>
+  </build>
   <dependencies>
     <dependency>
-      <artifactId>activiti-common</artifactId>
+      <artifactId>activiti-server</artifactId>
       <groupId>com.ooooo</groupId>
     </dependency>
     <dependency>
-      <artifactId>lombok</artifactId>
-      <groupId>org.projectlombok</groupId>
+      <artifactId>spring-cloud-starter-dubbo</artifactId>
+      <groupId>com.alibaba.cloud</groupId>
     </dependency>
     <dependency>
       <artifactId>spring-boot-starter-test</artifactId>
@@ -17,9 +27,7 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
-
-  <description>activiti-client</description>
-  <artifactId>activiti-client</artifactId>
+  <description>activiti-cloud</description>
   <licenses>
     <license>
       <name>Apache License, Version 2.0</name>
@@ -27,7 +35,8 @@
     </license>
   </licenses>
   <modelVersion>4.0.0</modelVersion>
-  <name>activiti-client</name>
+  <name>activiti-cloud</name>
+
   <packaging>jar</packaging>
 
   <parent>
@@ -35,5 +44,4 @@
     <groupId>com.ooooo</groupId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
-
 </project>
