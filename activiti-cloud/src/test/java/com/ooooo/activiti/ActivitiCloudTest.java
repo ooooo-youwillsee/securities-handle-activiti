@@ -52,7 +52,9 @@ public class ActivitiCloudTest {
 	
 	private String processInstanceId;
 	
-	
+	/**
+	 * @see ServiceTaskController
+	 */
 	@Test
 	public void test() {
 		// query processDefintion
@@ -61,9 +63,9 @@ public class ActivitiCloudTest {
 		
 		// then set serviceTask invoke url configuration
 		List<ServiceTaskConfigEntity> serviceTaskConfigEntityList = new ArrayList<>();
-		serviceTaskConfigEntityList.add(new ServiceTaskConfigEntity("service1", "http://localhost:" + port + "/serviceTask/"));
-		serviceTaskConfigEntityList.add(new ServiceTaskConfigEntity("service2", "http://wwww.baidu.com"));
-		serviceTaskConfigEntityList.add(new ServiceTaskConfigEntity("service3", "http://wwww.baidu.com"));
+		serviceTaskConfigEntityList.add(new ServiceTaskConfigEntity("service1", "http://localhost:" + port + "/serviceTask/invoke"));
+		serviceTaskConfigEntityList.add(new ServiceTaskConfigEntity("service2", "http://localhost:" + port + "/serviceTask/invoke"));
+		serviceTaskConfigEntityList.add(new ServiceTaskConfigEntity("service3", "http://localhost:" + port + "/serviceTask/invoke"));
 		
 		variables.put(SERVICE_TASK_CONFIG_ENTITY_KEY, JSON.toJSONString(serviceTaskConfigEntityList));
 		
