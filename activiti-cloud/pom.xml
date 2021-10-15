@@ -14,12 +14,29 @@
   </build>
   <dependencies>
     <dependency>
-      <artifactId>activiti-server</artifactId>
+      <artifactId>activiti-api-impl-activiti</artifactId>
       <groupId>com.ooooo</groupId>
+    </dependency>
+    <dependency>
+      <groupId>com.ooooo</groupId>
+      <artifactId>activiti-client</artifactId>
+    </dependency>
+
+    <dependency>
+      <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+      <groupId>com.alibaba.cloud</groupId>
+    </dependency>
+    <dependency>
+      <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
+      <groupId>com.alibaba.cloud</groupId>
     </dependency>
     <dependency>
       <artifactId>spring-cloud-starter-dubbo</artifactId>
       <groupId>com.alibaba.cloud</groupId>
+    </dependency>
+    <dependency>
+      <artifactId>spring-boot-starter-web</artifactId>
+      <groupId>org.springframework.boot</groupId>
     </dependency>
     <dependency>
       <artifactId>spring-boot-starter-test</artifactId>

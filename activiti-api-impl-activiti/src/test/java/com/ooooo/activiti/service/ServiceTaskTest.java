@@ -10,8 +10,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import static com.ooooo.activiti.constants.ActivitiConfigConstants.SKIP_SERVICE_TASK_KEY;
-import static com.ooooo.activiti.constants.ActivitiConfigConstants.SKIP_SERVICE_TASK_VALUE;
+import static com.ooooo.activiti.common.constants.ActivitiConfigConstants.SKIP_SERVICE_TASK_KEY;
+import static com.ooooo.activiti.common.constants.ActivitiConfigConstants.SKIP_SERVICE_TASK_VALUE;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 /**

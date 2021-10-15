@@ -1,11 +1,11 @@
 package com.ooooo;
 
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
  * @author leizhijie
  * @since 1.0.0
  */
-@SpringBootTest
+@SpringBootApplication
 public class ServerApplicationTest {
 }

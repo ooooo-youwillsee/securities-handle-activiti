@@ -29,6 +29,12 @@ public enum ActivityType {
 	}
 	
 	public static ActivityType of(String type) {
+		if (type == null || type.isEmpty()) {
+			throw new IllegalArgumentException("type is null");
+		}
+		// eg: ReceiveTask -> receiveTask
+		type = type.substring(0, 1).toLowerCase() + type.substring(1);
+		
 		for (ActivityType activityType : ActivityType.values()) {
 			if (activityType.getType().equals(type)) {
 				return activityType;

@@ -1,4 +1,4 @@
-package com.ooooo.activiti.api.dto.resp;
+package com.ooooo.activiti.api.dto.req;
 
 import lombok.Data;
 
@@ -7,5 +7,5 @@ import lombok.Data;
  * @since 1.0.0
  */
 @Data
-public class ExportResult {
+public class DeployProcessForm {
 }

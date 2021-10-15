@@ -12,6 +12,15 @@
     </license>
   </licenses>
   <modelVersion>4.0.0</modelVersion>
+
+  <modules>
+    <module>activiti-common</module>
+    <module>activiti-api</module>
+    <module>activiti-client</module>
+    <module>activiti-api-impl-activiti</module>
+    <module>activiti-cloud</module>
+  </modules>
+
   <dependencyManagement>
     <dependencies>
       <dependency>
@@ -47,6 +56,21 @@
         <groupId>org.activiti</groupId>
         <version>${activiti-dependencies.version}</version>
       </dependency>
+      <dependency>
+        <artifactId>spring-cloud-starter-dubbo</artifactId>
+        <groupId>com.alibaba.cloud</groupId>
+        <version>${spring-cloud-alibaba-dependencies.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.alibaba.cloud</groupId>
+        <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+        <version>${spring-cloud-alibaba-dependencies.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.alibaba.cloud</groupId>
+        <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
+        <version>${spring-cloud-alibaba-dependencies.version}</version>
+      </dependency>
 
       <dependency>
         <artifactId>activiti-api</artifactId>
@@ -69,7 +93,7 @@
         <version>${project.version}</version>
       </dependency>
       <dependency>
-        <artifactId>activiti-server</artifactId>
+        <artifactId>activiti-api-impl-activiti</artifactId>
         <groupId>com.ooooo</groupId>
         <version>${project.version}</version>
       </dependency>
@@ -119,13 +143,6 @@
   <!--    </repository>-->
   <!--  </repositories>-->
 
-  <modules>
-    <module>activiti-common</module>
-    <module>activiti-api</module>
-    <module>activiti-client</module>
-    <module>activiti-server</module>
-    <module>activiti-cloud</module>
-  </modules>
 
   <build>
     <pluginManagement>
@@ -195,7 +212,7 @@
     <maven.compiler.source>${java.version}</maven.compiler.source>
     <maven.compiler.target>${java.version}</maven.compiler.target>
     <project.version>0.0.1-SNAPSHOT</project.version>
-    <spring-boot.version>2.5.3</spring-boot.version>
+    <spring-boot.version>2.3.2.RELEASE</spring-boot.version>
     <versions-maven-plugin.version>2.8.1</versions-maven-plugin.version>
     <spring-cloud-alibaba-dependencies.version>2.2.5.RELEASE</spring-cloud-alibaba-dependencies.version>
     <spring.cloud.version>Hoxton.SR9</spring.cloud.version>

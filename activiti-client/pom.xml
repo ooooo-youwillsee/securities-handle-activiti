@@ -12,9 +12,18 @@
       <groupId>org.projectlombok</groupId>
     </dependency>
     <dependency>
+      <artifactId>spring-boot-starter</artifactId>
+      <groupId>org.springframework.boot</groupId>
+      <optional>true</optional>
+    </dependency>
+    <dependency>
       <artifactId>spring-boot-starter-test</artifactId>
       <groupId>org.springframework.boot</groupId>
       <scope>test</scope>
+    </dependency>
+    <dependency>
+      <artifactId>activiti-api</artifactId>
+      <groupId>com.ooooo</groupId>
     </dependency>
   </dependencies>
 

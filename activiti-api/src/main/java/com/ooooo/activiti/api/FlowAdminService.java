@@ -1,9 +1,11 @@
 package com.ooooo.activiti.api;
 
-import com.ooooo.activiti.api.dto.req.ExportForm;
-import com.ooooo.activiti.api.dto.resp.DeployForm;
-import com.ooooo.activiti.api.dto.resp.DeployResult;
-import com.ooooo.activiti.api.dto.resp.ExportResult;
+import com.ooooo.activiti.api.dto.req.DeployProcessForm;
+import com.ooooo.activiti.api.dto.req.ExportProcessForm;
+import com.ooooo.activiti.api.dto.req.ProcessDefinitionForm;
+import com.ooooo.activiti.api.dto.resp.DeployProcessResult;
+import com.ooooo.activiti.api.dto.resp.ExportProcessResult;
+import com.ooooo.activiti.api.dto.resp.ProcessDefinitionResult;
 
 /**
  * @author leizhijie
@@ -11,9 +13,9 @@ import com.ooooo.activiti.api.dto.resp.ExportResult;
  */
 public interface FlowAdminService {
 	
-	DeployResult deploy(DeployForm form);
+	DeployProcessResult deploy(DeployProcessForm form);
 	
-	ExportResult export(ExportForm form);
+	ExportProcessResult export(ExportProcessForm form);
 	
-	
+	ProcessDefinitionResult processDefintion(ProcessDefinitionForm form);
 }

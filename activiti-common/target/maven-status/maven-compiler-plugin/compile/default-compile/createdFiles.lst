@@ -1,4 +1,4 @@
-com/ooooo/common/annotation/ImportField.class
-com/ooooo/common/event/ActivityEvent.class
-com/ooooo/common/enums/ActivityType.class
-com/ooooo/common/enums/ActivityTypeHelper.class
+com/ooooo/activiti/common/enums/ActivityTypeHelper.class
+com/ooooo/activiti/common/enums/ActivityType.class
+com/ooooo/activiti/common/event/ActivityEvent.class
+com/ooooo/activiti/common/annotation/ImportantField.class

@@ -7,5 +7,5 @@ import lombok.Data;
  * @since 1.0.0
  */
 @Data
-public class ExportForm {
+public class ExportProcessForm {
 }

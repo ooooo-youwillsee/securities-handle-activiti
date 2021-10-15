@@ -9,7 +9,7 @@ import lombok.Data;
  * @since 1.0.0
  */
 @Data
-public class CurrentResult {
+public class PrevActivityResult {
 	
 	@ImportantField
 	private String activityId;

@@ -18,14 +18,20 @@ public class ProcessService {
 	@Autowired
 	private SpringProcessEngineConfiguration processEngineConfiguration;
 	
-	public Process getProcess(String processDefinitionId) {
+	public Process getProcessById(String processDefinitionId) {
 		DeploymentManager deploymentManager = processEngineConfiguration.getDeploymentManager();
 		ProcessDefinition processDefinitionEntity = deploymentManager.findDeployedProcessDefinitionById(processDefinitionId);
 		return deploymentManager.resolveProcessDefinition(processDefinitionEntity).getProcess();
 	}
 	
+	public Process getProcessByKey(String processDefinitionKey) {
+		DeploymentManager deploymentManager = processEngineConfiguration.getDeploymentManager();
+		ProcessDefinition processDefinitionEntity = deploymentManager.findDeployedLatestProcessDefinitionByKey(processDefinitionKey);
+		return deploymentManager.resolveProcessDefinition(processDefinitionEntity).getProcess();
+	}
+	
 	public FlowElement getFlowElement(String processDefinitionId, String flowElementId) {
-		Process process = getProcess(processDefinitionId);
+		Process process = getProcessById(processDefinitionId);
 		return process.getFlowElement(flowElementId, true);
 	}
 	

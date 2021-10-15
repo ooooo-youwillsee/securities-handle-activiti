@@ -9,7 +9,6 @@ import org.activiti.engine.impl.interceptor.Command;
 import org.activiti.engine.impl.interceptor.CommandContext;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntity;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntityManager;
-import org.apache.commons.lang3.StringUtils;
 
 import static com.ooooo.activiti.common.enums.ActivityType.END_EVENT;
 
@@ -35,12 +34,9 @@ public class CurrentActivityCmd implements Command<ActivityEntity> {
 		
 		// current element
 		ExecutionEntity execution = executions.get(0);
-		
 		FlowElement element = execution.getCurrentFlowElement();
-		// eg: ReceiveTask -> receiveTask
-		String elementName = StringUtils.uncapitalize(element.getClass().getSimpleName());
 		
-		ActivityType activityType = ActivityType.of(elementName);
+		ActivityType activityType = ActivityType.of(element.getClass().getSimpleName());
 		activityEntity.setActivityType(activityType);
 		activityEntity.setActivityId(execution.getActivityId());
 		

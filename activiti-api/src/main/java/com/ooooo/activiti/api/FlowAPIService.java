@@ -1,17 +1,17 @@
 package com.ooooo.activiti.api;
 
-import com.ooooo.activiti.api.dto.req.BackForm;
-import com.ooooo.activiti.api.dto.req.CurrentForm;
-import com.ooooo.activiti.api.dto.req.EndForm;
-import com.ooooo.activiti.api.dto.req.NextForm;
-import com.ooooo.activiti.api.dto.req.PrevForm;
-import com.ooooo.activiti.api.dto.req.StartForm;
-import com.ooooo.activiti.api.dto.resp.BackResult;
-import com.ooooo.activiti.api.dto.resp.CurrentResult;
-import com.ooooo.activiti.api.dto.resp.EndResult;
-import com.ooooo.activiti.api.dto.resp.NextResult;
-import com.ooooo.activiti.api.dto.resp.PrevResult;
-import com.ooooo.activiti.api.dto.resp.StartResult;
+import com.ooooo.activiti.api.dto.req.BackProcessForm;
+import com.ooooo.activiti.api.dto.req.CurrentActivityForm;
+import com.ooooo.activiti.api.dto.req.EndProcessForm;
+import com.ooooo.activiti.api.dto.req.NextActivityForm;
+import com.ooooo.activiti.api.dto.req.PrevActivityForm;
+import com.ooooo.activiti.api.dto.req.StartProcessForm;
+import com.ooooo.activiti.api.dto.resp.BackActivityResult;
+import com.ooooo.activiti.api.dto.resp.CurrentActivityResult;
+import com.ooooo.activiti.api.dto.resp.EndProcessResult;
+import com.ooooo.activiti.api.dto.resp.NextActivityResult;
+import com.ooooo.activiti.api.dto.resp.PrevActivityResult;
+import com.ooooo.activiti.api.dto.resp.StartProcessResult;
 
 /**
  * @author leizhijie
@@ -25,10 +25,16 @@ public interface FlowAPIService {
 	 * @param form
 	 * @return
 	 */
-	StartResult start(StartForm form);
+	StartProcessResult start(StartProcessForm form);
 	
 	
-	CurrentResult current(CurrentForm form);
+	/**
+	 * 流程当前节点
+	 *
+	 * @param form
+	 * @return
+	 */
+	CurrentActivityResult current(CurrentActivityForm form);
 	
 	/**
 	 * 流程下一步
@@ -36,7 +42,7 @@ public interface FlowAPIService {
 	 * @param form
 	 * @return
 	 */
-	NextResult next(NextForm form);
+	NextActivityResult next(NextActivityForm form);
 	
 	/**
 	 * 流程上一步
@@ -44,7 +50,7 @@ public interface FlowAPIService {
 	 * @param form
 	 * @return
 	 */
-	PrevResult prev(PrevForm form);
+	PrevActivityResult prev(PrevActivityForm form);
 	
 	/**
 	 * 打回流程
@@ -52,7 +58,7 @@ public interface FlowAPIService {
 	 * @param form
 	 * @return
 	 */
-	BackResult back(BackForm form);
+	BackActivityResult back(BackProcessForm form);
 	
 	/**
 	 * 结束流程
@@ -60,5 +66,5 @@ public interface FlowAPIService {
 	 * @param form
 	 * @return
 	 */
-	EndResult end(EndForm form);
+	EndProcessResult end(EndProcessForm form);
 }

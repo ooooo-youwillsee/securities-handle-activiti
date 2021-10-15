@@ -12,8 +12,8 @@ import org.activiti.runtime.api.impl.VariablesMappingProvider;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.context.ApplicationContext;
 
-import static com.ooooo.activiti.constants.ActivitiConfigConstants.SKIP_SERVICE_TASK_KEY;
-import static com.ooooo.activiti.constants.ActivitiConfigConstants.SKIP_SERVICE_TASK_VALUE;
+import static com.ooooo.activiti.common.constants.ActivitiConfigConstants.SKIP_SERVICE_TASK_KEY;
+import static com.ooooo.activiti.common.constants.ActivitiConfigConstants.SKIP_SERVICE_TASK_VALUE;
 import static org.activiti.runtime.api.impl.MappingExecutionContext.buildMappingExecutionContext;
 
 /**

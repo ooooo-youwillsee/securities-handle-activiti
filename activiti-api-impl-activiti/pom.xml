@@ -48,8 +48,8 @@
     </dependency>
   </dependencies>
 
-  <artifactId>activiti-server</artifactId>
-  <description>activiti-server</description>
+  <artifactId>activiti-api-impl-activiti</artifactId>
+  <description>activiti-api-impl-activiti</description>
   <licenses>
     <license>
       <name>Apache License, Version 2.0</name>
@@ -57,16 +57,7 @@
     </license>
   </licenses>
   <modelVersion>4.0.0</modelVersion>
-  <name>activiti-server</name>
-
-  <build>
-    <plugins>
-      <plugin>
-        <artifactId>spring-boot-maven-plugin</artifactId>
-        <groupId>org.springframework.boot</groupId>
-      </plugin>
-    </plugins>
-  </build>
+  <name>activiti-api-impl-activiti</name>
 
   <parent>
     <artifactId>securities-handle-activiti</artifactId>

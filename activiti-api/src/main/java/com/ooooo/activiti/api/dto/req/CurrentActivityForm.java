@@ -1,7 +1,6 @@
-package com.ooooo.activiti.api.dto.resp;
+package com.ooooo.activiti.api.dto.req;
 
 import com.ooooo.activiti.common.annotation.ImportantField;
-import com.ooooo.activiti.common.enums.ActivityType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,11 +12,8 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class NextResult {
+public class CurrentActivityForm {
 	
 	@ImportantField
-	private String activityId;
-	
-	@ImportantField
-	private ActivityType activityType;
+	private String processInstanceId;
 }
