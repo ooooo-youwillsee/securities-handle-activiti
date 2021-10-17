@@ -10,14 +10,15 @@ import com.ooooo.activiti.api.dto.resp.ProcessDefinitionResult;
 import com.ooooo.activiti.api.dto.resp.ProcessDefinitionResult.ProcessActivityDefinition;
 import com.ooooo.activiti.common.enums.ActivityType;
 import com.ooooo.activiti.service.ProcessService;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 import lombok.extern.slf4j.Slf4j;
 import org.activiti.bpmn.model.Process;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import static com.ooooo.activiti.common.enums.ActivityType.of;
 
@@ -41,19 +42,19 @@ public class ActivitiFlowAdminService implements FlowAdminService {
 	public ExportProcessResult export(ExportProcessForm form) {
 		return null;
 	}
-	
+
 	@Override
-	public ProcessDefinitionResult processDefintion(ProcessDefinitionForm form) {
+	public ProcessDefinitionResult processDefinition(ProcessDefinitionForm form) {
 		Process process = processService.getProcessByKey(form.getProcessDefinitionKey());
-		
+
 		Set<String> activityTypes = Arrays.stream(ActivityType.values()).map(ActivityType::getType).collect(Collectors.toSet());
-		
+
 		List<ProcessActivityDefinition> activityDefinitions = process.getFlowElements()
-		                                                             .stream()
-		                                                             .filter(element -> activityTypes.contains(element.getClass().getSimpleName()))
-		                                                             .map(element -> {
-			                                                             ProcessActivityDefinition activityDefinition = new ProcessActivityDefinition();
-			                                                             activityDefinition.setActivityId(element.getId());
+						.stream()
+						.filter(element -> activityTypes.contains(element.getClass().getSimpleName()))
+						.map(element -> {
+							ProcessActivityDefinition activityDefinition = new ProcessActivityDefinition();
+							activityDefinition.setActivityId(element.getId());
 			                                                             activityDefinition.setActivityName(element.getName());
 			                                                             activityDefinition.setActivityType(of(element.getClass().getSimpleName()));
 			

@@ -17,5 +17,5 @@ public interface FlowAdminService {
 	
 	ExportProcessResult export(ExportProcessForm form);
 	
-	ProcessDefinitionResult processDefintion(ProcessDefinitionForm form);
+	ProcessDefinitionResult processDefinition(ProcessDefinitionForm form);
 }

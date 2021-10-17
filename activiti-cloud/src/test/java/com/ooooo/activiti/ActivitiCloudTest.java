@@ -13,10 +13,6 @@ import com.ooooo.activiti.api.dto.resp.ProcessDefinitionResult;
 import com.ooooo.activiti.api.dto.resp.StartProcessResult;
 import com.ooooo.activiti.common.entity.config.ServiceTaskConfigEntity;
 import com.ooooo.activiti.common.enums.ActivityType;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,6 +20,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import static com.ooooo.activiti.common.constants.ActivitiConfigConstants.SERVICE_TASK_CONFIG_ENTITY_KEY;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -58,7 +59,7 @@ public class ActivitiCloudTest {
 	@Test
 	public void test() {
 		// query processDefintion
-		ProcessDefinitionResult processDefinitionResult = adminService.processDefintion(new ProcessDefinitionForm(processDefinitionKey));
+		ProcessDefinitionResult processDefinitionResult = adminService.processDefinition(new ProcessDefinitionForm(processDefinitionKey));
 		LOGGER.info("processDefinitionResult: {}", JSON.toJSONString(processDefinitionResult.getActivityDefinitionList()));
 		
 		// then set serviceTask invoke url configuration
