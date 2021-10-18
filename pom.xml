@@ -19,6 +19,7 @@
     <module>activiti-client</module>
     <module>activiti-api-impl-activiti</module>
     <module>activiti-cloud</module>
+    <module>activiti-example-dubbo</module>
   </modules>
 
   <dependencyManagement>
@@ -134,6 +135,7 @@
         <artifactId>okhttp</artifactId>
         <version>${okhttp.version}</version>
       </dependency>
+
       <!--   end   -->
     </dependencies>
   </dependencyManagement>

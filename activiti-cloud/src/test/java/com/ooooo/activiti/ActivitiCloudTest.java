@@ -1,8 +1,8 @@
 package com.ooooo.activiti;
 
 import com.alibaba.fastjson.JSON;
-import com.ooooo.activiti.api.FlowAPIService;
-import com.ooooo.activiti.api.FlowAdminService;
+import com.ooooo.activiti.api.ActivitiAPIService;
+import com.ooooo.activiti.api.ActivitiAdminService;
 import com.ooooo.activiti.api.dto.req.CurrentActivityForm;
 import com.ooooo.activiti.api.dto.req.NextActivityForm;
 import com.ooooo.activiti.api.dto.req.ProcessDefinitionForm;
@@ -13,19 +13,21 @@ import com.ooooo.activiti.api.dto.resp.ProcessDefinitionResult;
 import com.ooooo.activiti.api.dto.resp.StartProcessResult;
 import com.ooooo.activiti.common.entity.config.ServiceTaskConfigEntity;
 import com.ooooo.activiti.common.enums.ActivityType;
-import org.junit.jupiter.api.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.junit.jupiter.api.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 
+import static com.ooooo.activiti.api.ActivitiAPIService.ACTIVITI_API_SERVICE_BEAN_NAME;
+import static com.ooooo.activiti.api.ActivitiAdminService.ACTIVITI_ADMIN_SERVICE_BEAN_NAME;
 import static com.ooooo.activiti.common.constants.ActivitiConfigConstants.SERVICE_TASK_CONFIG_ENTITY_KEY;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -39,13 +41,15 @@ public class ActivitiCloudTest {
 	private static final Logger LOGGER = LoggerFactory.getLogger(ActivitiCloudTest.class);
 	
 	@Autowired
-	private FlowAPIService apiService;
+	@Qualifier(ACTIVITI_API_SERVICE_BEAN_NAME)
+	private ActivitiAPIService apiService;
 	
 	@Value("${server.port}")
 	private String port;
 	
 	@MockBean
-	private FlowAdminService adminService;
+	@Qualifier(ACTIVITI_ADMIN_SERVICE_BEAN_NAME)
+	private ActivitiAdminService adminService;
 	
 	private final Map<String, Object> variables = new HashMap<>();
 	

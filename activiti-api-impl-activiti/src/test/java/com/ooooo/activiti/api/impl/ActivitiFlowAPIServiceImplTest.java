@@ -1,6 +1,5 @@
 package com.ooooo.activiti.api.impl;
 
-import com.ooooo.activiti.api.FlowAPIService;
 import com.ooooo.activiti.api.dto.req.BackProcessForm;
 import com.ooooo.activiti.api.dto.req.CurrentActivityForm;
 import com.ooooo.activiti.api.dto.req.EndProcessForm;
@@ -12,6 +11,7 @@ import com.ooooo.activiti.api.dto.resp.EndProcessResult;
 import com.ooooo.activiti.api.dto.resp.NextActivityResult;
 import com.ooooo.activiti.api.dto.resp.PrevActivityResult;
 import com.ooooo.activiti.api.dto.resp.StartProcessResult;
+import com.ooooo.activiti.api.dubbo.DubboActivitiAPIService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -35,7 +35,7 @@ class ActivitiFlowAPIServiceImplTest {
 	private final ThreadLocal<String> processDefinitionKey = new ThreadLocal<>();
 	
 	@Autowired
-	private FlowAPIService flowAPIService;
+	private DubboActivitiAPIService flowAPIService;
 	
 	@Test
 	void start() {

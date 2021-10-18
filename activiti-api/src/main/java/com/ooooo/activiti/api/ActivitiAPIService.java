@@ -12,12 +12,16 @@ import com.ooooo.activiti.api.dto.resp.EndProcessResult;
 import com.ooooo.activiti.api.dto.resp.NextActivityResult;
 import com.ooooo.activiti.api.dto.resp.PrevActivityResult;
 import com.ooooo.activiti.api.dto.resp.StartProcessResult;
+import com.ooooo.activiti.common.annotation.Internal;
 
 /**
  * @author leizhijie
  * @since 1.0.0
  */
-public interface FlowAPIService {
+@Internal
+public interface ActivitiAPIService {
+	
+	String ACTIVITI_API_SERVICE_BEAN_NAME = "ActivitiAPIService";
 	
 	/**
 	 * 启动流程

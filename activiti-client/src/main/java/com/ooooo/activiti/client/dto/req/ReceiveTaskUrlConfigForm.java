@@ -1,4 +1,4 @@
-package com.ooooo.activiti.client.dto.resp;
+package com.ooooo.activiti.client.dto.req;
 
 import java.util.Map;
 import lombok.Data;
@@ -8,7 +8,7 @@ import lombok.Data;
  * @since 1.0.0
  */
 @Data
-public class InvokeUrlForm {
+public class ReceiveTaskUrlConfigForm {
 	
 	private String processInstanceId;
 	

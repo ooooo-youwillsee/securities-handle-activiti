@@ -28,7 +28,7 @@ public class JumpActivityConfiguration {
 	private ProcessService processService;
 	
 	@Bean
-	public BPMNElementEventListener<BPMNSequenceFlowTakenEvent> jumpActivityTakenEventBPMNElementEventListener() {
+	public BPMNElementEventListener<BPMNSequenceFlowTakenEvent> jumpActivityTakenEventEventListener() {
 		return event -> {
 			BPMNSequenceFlow entity = event.getEntity();
 			String processDefinitionId = entity.getProcessDefinitionId();

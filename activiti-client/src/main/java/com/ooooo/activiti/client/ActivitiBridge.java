@@ -1,8 +1,9 @@
 package com.ooooo.activiti.client;
 
 
-import com.ooooo.activiti.client.dto.req.InvokeUrlResult;
-import com.ooooo.activiti.client.dto.resp.InvokeUrlForm;
+import com.ooooo.activiti.client.dto.req.ReceiveTaskUrlConfigForm;
+import com.ooooo.activiti.client.dto.req.ServiceTaskUrlConfigForm;
+import com.ooooo.activiti.client.dto.resp.ReceiveTaskUrlConfigResult;
 
 /**
  * @author <a href="https://github.com/ooooo-youwillsee">ooooo</a>
@@ -10,5 +11,7 @@ import com.ooooo.activiti.client.dto.resp.InvokeUrlForm;
  */
 public interface ActivitiBridge {
 	
-	InvokeUrlResult query(InvokeUrlForm form);
+	ReceiveTaskUrlConfigResult query(ReceiveTaskUrlConfigForm form);
+	
+	ServiceTaskUrlConfigForm query(ServiceTaskUrlConfigForm form);
 }

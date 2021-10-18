@@ -20,19 +20,25 @@ public class ProcessService {
 	
 	public Process getProcessById(String processDefinitionId) {
 		DeploymentManager deploymentManager = processEngineConfiguration.getDeploymentManager();
-		ProcessDefinition processDefinitionEntity = deploymentManager.findDeployedProcessDefinitionById(processDefinitionId);
-		return deploymentManager.resolveProcessDefinition(processDefinitionEntity).getProcess();
+		ProcessDefinition processDefinition = deploymentManager.findDeployedProcessDefinitionById(processDefinitionId);
+		return deploymentManager.resolveProcessDefinition(processDefinition).getProcess();
 	}
 	
 	public Process getProcessByKey(String processDefinitionKey) {
 		DeploymentManager deploymentManager = processEngineConfiguration.getDeploymentManager();
-		ProcessDefinition processDefinitionEntity = deploymentManager.findDeployedLatestProcessDefinitionByKey(processDefinitionKey);
-		return deploymentManager.resolveProcessDefinition(processDefinitionEntity).getProcess();
+		ProcessDefinition processDefinition = deploymentManager.findDeployedLatestProcessDefinitionByKey(processDefinitionKey);
+		return deploymentManager.resolveProcessDefinition(processDefinition).getProcess();
 	}
 	
 	public FlowElement getFlowElement(String processDefinitionId, String flowElementId) {
 		Process process = getProcessById(processDefinitionId);
 		return process.getFlowElement(flowElementId, true);
+	}
+	
+	public String getProcessDefinitionKey(String processDefinitionId) {
+		DeploymentManager deploymentManager = processEngineConfiguration.getDeploymentManager();
+		ProcessDefinition processDefinition = deploymentManager.findDeployedProcessDefinitionById(processDefinitionId);
+		return processDefinition.getKey();
 	}
 	
 }

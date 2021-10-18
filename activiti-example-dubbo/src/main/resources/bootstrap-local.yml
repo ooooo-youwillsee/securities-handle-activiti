@@ -1,0 +1,18 @@
+spring:
+  cloud:
+    nacos:
+      discovery:
+        enabled: true
+      config:
+        file-extension: yml
+        enabled: false
+      server-addr: 172.16.1.104:7848
+      username: nacos
+      password: nacos
+
+  datasource:
+    driver-class-name: com.p6spy.engine.spy.P6SpyDriver
+    url: jdbc:p6spy:mysql://localhost:3306/activiti_test?useUnicode=true&useSSL=false&autoReconnect=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai
+    username: root
+    password: root
+    type: com.zaxxer.hikari.HikariDataSource

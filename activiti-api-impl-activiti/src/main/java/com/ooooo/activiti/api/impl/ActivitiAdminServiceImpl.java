@@ -1,6 +1,6 @@
 package com.ooooo.activiti.api.impl;
 
-import com.ooooo.activiti.api.FlowAdminService;
+import com.ooooo.activiti.api.ActivitiAdminService;
 import com.ooooo.activiti.api.dto.req.DeployProcessForm;
 import com.ooooo.activiti.api.dto.req.ExportProcessForm;
 import com.ooooo.activiti.api.dto.req.ProcessDefinitionForm;
@@ -10,15 +10,13 @@ import com.ooooo.activiti.api.dto.resp.ProcessDefinitionResult;
 import com.ooooo.activiti.api.dto.resp.ProcessDefinitionResult.ProcessActivityDefinition;
 import com.ooooo.activiti.common.enums.ActivityType;
 import com.ooooo.activiti.service.ProcessService;
-import lombok.extern.slf4j.Slf4j;
-import org.activiti.bpmn.model.Process;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
+import lombok.extern.slf4j.Slf4j;
+import org.activiti.bpmn.model.Process;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import static com.ooooo.activiti.common.enums.ActivityType.of;
 
@@ -27,8 +25,7 @@ import static com.ooooo.activiti.common.enums.ActivityType.of;
  * @since 1.0.0
  */
 @Slf4j
-@Component
-public class ActivitiFlowAdminService implements FlowAdminService {
+public class ActivitiAdminServiceImpl implements ActivitiAdminService {
 	
 	@Autowired
 	private ProcessService processService;

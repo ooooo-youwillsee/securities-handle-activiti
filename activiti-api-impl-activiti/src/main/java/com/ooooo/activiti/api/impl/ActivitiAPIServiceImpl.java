@@ -1,6 +1,6 @@
 package com.ooooo.activiti.api.impl;
 
-import com.ooooo.activiti.api.FlowAPIService;
+import com.ooooo.activiti.api.ActivitiAPIService;
 import com.ooooo.activiti.api.dto.req.BackProcessForm;
 import com.ooooo.activiti.api.dto.req.CurrentActivityForm;
 import com.ooooo.activiti.api.dto.req.EndProcessForm;
@@ -24,7 +24,6 @@ import com.ooooo.activiti.dto.ProcessEnitty;
 import com.ooooo.activiti.service.CommandService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import static com.ooooo.activiti.common.enums.ActivityType.END_EVENT;
 
@@ -33,8 +32,7 @@ import static com.ooooo.activiti.common.enums.ActivityType.END_EVENT;
  * @since 1.0.0
  */
 @Slf4j
-@Component
-public class ActivitiFlowAPIServiceImpl implements FlowAPIService {
+public class ActivitiAPIServiceImpl implements ActivitiAPIService {
 	
 	@Autowired
 	private CommandService commandService;
@@ -49,6 +47,7 @@ public class ActivitiFlowAPIServiceImpl implements FlowAPIService {
 		
 		StartProcessResult result = new StartProcessResult();
 		result.setProcessInstanceId(processEnitty.getProcessInstanceId());
+		
 		return result;
 	}
 	

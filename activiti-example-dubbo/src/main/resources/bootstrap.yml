@@ -1,0 +1,38 @@
+server:
+  port: 0
+
+management:
+  endpoints:
+    jmx:
+      exposure:
+        include: '*'
+
+spring:
+  application:
+    name: activiti-example-dubbo
+  main:
+    allow-bean-definition-overriding: true
+  cloud:
+    nacos:
+      config:
+        shared-configs:
+          - dataId: application.yml
+            group: COMMON_GROUP
+  activiti:
+    db-history-used: true
+    history-level: full
+    database-schema-update: true
+
+mybatis-plus:
+  mapperLocations: classpath*:/mapper/**/*.xml
+
+
+dubbo:
+  protocols:
+    dubbo:
+      name: dubbo
+      port: -1
+  consumer:
+    timeout: 30000
+  provider:
+    timeout: 30000

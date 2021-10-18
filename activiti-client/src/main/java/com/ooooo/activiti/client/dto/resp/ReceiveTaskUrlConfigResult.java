@@ -1,4 +1,4 @@
-package com.ooooo.activiti.client.dto.req;
+package com.ooooo.activiti.client.dto.resp;
 
 import lombok.Data;
 
@@ -7,5 +7,7 @@ import lombok.Data;
  * @since 1.0.0
  */
 @Data
-public class InvokeUrlResult {
+public class ReceiveTaskUrlConfigResult {
+	
+	private String url;
 }

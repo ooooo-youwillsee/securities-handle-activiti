@@ -2,12 +2,34 @@
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xmlns="http://maven.apache.org/POM/4.0.0"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <parent>
+    <artifactId>securities-handle-activiti</artifactId>
+    <groupId>com.ooooo</groupId>
+    <version>0.0.1-SNAPSHOT</version>
+  </parent>
+
+
+  <artifactId>activiti-api-impl-activiti</artifactId>
+  <description>activiti-api-impl-activiti</description>
+  <licenses>
+    <license>
+      <name>Apache License, Version 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0</url>
+    </license>
+  </licenses>
+  <modelVersion>4.0.0</modelVersion>
+  <name>activiti-api-impl-activiti</name>
+
   <dependencies>
     <dependency>
       <artifactId>activiti-api</artifactId>
       <groupId>com.ooooo</groupId>
     </dependency>
 
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-actuator</artifactId>
+    </dependency>
     <dependency>
       <artifactId>spring-boot-starter-web</artifactId>
       <groupId>org.springframework.boot</groupId>
@@ -42,27 +64,15 @@
       <groupId>commons-beanutils</groupId>
     </dependency>
     <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+    </dependency>
+    <dependency>
       <artifactId>spring-boot-starter-test</artifactId>
       <groupId>org.springframework.boot</groupId>
       <scope>test</scope>
     </dependency>
   </dependencies>
 
-  <artifactId>activiti-api-impl-activiti</artifactId>
-  <description>activiti-api-impl-activiti</description>
-  <licenses>
-    <license>
-      <name>Apache License, Version 2.0</name>
-      <url>http://www.apache.org/licenses/LICENSE-2.0</url>
-    </license>
-  </licenses>
-  <modelVersion>4.0.0</modelVersion>
-  <name>activiti-api-impl-activiti</name>
-
-  <parent>
-    <artifactId>securities-handle-activiti</artifactId>
-    <groupId>com.ooooo</groupId>
-    <version>0.0.1-SNAPSHOT</version>
-  </parent>
 
 </project>
