@@ -3,6 +3,8 @@ package com.ooooo.activiti.config;
 import com.ooooo.activiti.api.ActivitiEventService;
 import com.ooooo.activiti.common.event.ActivityEvent;
 import com.ooooo.activiti.service.ProcessService;
+import java.util.LinkedList;
+import java.util.Queue;
 import lombok.extern.slf4j.Slf4j;
 import org.activiti.api.process.model.BPMNSequenceFlow;
 import org.activiti.api.process.model.events.BPMNSequenceFlowTakenEvent;
@@ -10,6 +12,8 @@ import org.activiti.api.process.runtime.events.listener.BPMNElementEventListener
 import org.activiti.bpmn.model.Activity;
 import org.activiti.bpmn.model.EndEvent;
 import org.activiti.bpmn.model.FlowElement;
+import org.activiti.bpmn.model.FlowNode;
+import org.activiti.bpmn.model.SequenceFlow;
 import org.activiti.bpmn.model.StartEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -48,7 +52,7 @@ public class ActivitiEventConfiguration {
 			FlowElement targetFlowElement = processService.getFlowElement(processDefinitionId, targetActivityElementId);
 			
 			// calc
-			int distance = calcDistance(sourceFlowElement, targetFlowElement);
+			int distance = calcDistance(processDefinitionId, sourceFlowElement, targetFlowElement);
 			
 			ActivityEvent activityEvent = new ActivityEvent();
 			activityEvent.setProcessDefinitionId(processDefinitionId);
@@ -70,7 +74,7 @@ public class ActivitiEventConfiguration {
 				eventService.onProcessEndedEvent(activityEvent);
 			} else if (sourceFlowElement instanceof StartEvent) {
 				// prev activity is startEvent
-				StartEvent startEvent = (StartEvent) targetFlowElement;
+				StartEvent startEvent = (StartEvent) sourceFlowElement;
 				activityEvent.setActivityId(startEvent.getId());
 				activityEvent.setActivityName(startEvent.getName());
 				activityEvent.setActivityType(startEvent.getClass().getSimpleName());
@@ -125,11 +129,50 @@ public class ActivitiEventConfiguration {
 	/**
 	 * calculate distance from sourceFlowElement to targetFlowElement
 	 *
+	 * @param processDefinitionId
 	 * @param sourceFlowElement
 	 * @param targetFlowElement
 	 * @return
 	 */
-	private int calcDistance(FlowElement sourceFlowElement, FlowElement targetFlowElement) {
+	private int calcDistance(String processDefinitionId, FlowElement sourceFlowElement, FlowElement targetFlowElement) {
+		if (!(sourceFlowElement instanceof FlowNode) || !(targetFlowElement instanceof FlowNode)) {
+			return 0;
+		}
+		FlowNode sourceFlowNode = (FlowNode) sourceFlowElement;
+		FlowNode targetFlowNode = (FlowNode) targetFlowElement;
+		
+		int x = calcDistanceToStartEvent(processDefinitionId, sourceFlowNode);
+		int y = calcDistanceToStartEvent(processDefinitionId, targetFlowNode);
+		
+		return y - x;
+	}
+	
+	private int calcDistanceToStartEvent(String processDefinitionId, FlowNode flowNode) {
+		StartEvent startEvent = processService.getStartEvent(processDefinitionId);
+		if (startEvent.getId().equals(flowNode.getId())) {
+			return 0;
+		}
+		
+		int depth = 1;
+		Queue<FlowNode> queue = new LinkedList<>();
+		queue.offer(startEvent);
+		
+		while (!queue.isEmpty()) {
+			for (int i = 0, sz = queue.size(); i < sz; i++) {
+				FlowNode node = queue.poll();
+				for (SequenceFlow flow : node.getOutgoingFlows()) {
+					FlowElement element = flow.getTargetFlowElement();
+					if (element.getId().equals(flowNode.getId())) {
+						return depth;
+					}
+					
+					if (element instanceof FlowNode) {
+						queue.add((FlowNode) element);
+					}
+				}
+			}
+			depth++;
+		}
 		
 		return 0;
 	}

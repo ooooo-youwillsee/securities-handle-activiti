@@ -10,6 +10,7 @@ import org.activiti.engine.impl.interceptor.CommandContext;
 import org.activiti.engine.impl.interceptor.CommandExecutor;
 
 import static com.ooooo.activiti.cmd.CommonContextHelper.getCommandExecutor;
+import static com.ooooo.activiti.cmd.CommonContextHelper.getProcess;
 
 /**
  * @author leizhijie
@@ -36,13 +37,13 @@ public class EndProcessCmd implements Command<Void> {
 	 * @return
 	 */
 	private EndEvent getEndEventElement(CommandContext commandContext, String processInstanceId) {
-		Process process = CommonContextHelper.getProcess(commandContext, processInstanceId);
+		Process process = getProcess(commandContext, processInstanceId);
 		for (FlowElement flowElement : process.getFlowElements()) {
 			if (flowElement instanceof EndEvent) {
 				return (EndEvent) flowElement;
 			}
 		}
-		throw new IllegalArgumentException("not found element['endEvent'], processDefinitionId: " + processInstanceId);
+		throw new IllegalArgumentException("not found element['endEvent'], processInstanceId: " + processInstanceId);
 	}
 	
 }

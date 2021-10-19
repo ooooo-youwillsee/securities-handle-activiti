@@ -2,6 +2,7 @@ package com.ooooo.activiti.service;
 
 import org.activiti.bpmn.model.FlowElement;
 import org.activiti.bpmn.model.Process;
+import org.activiti.bpmn.model.StartEvent;
 import org.activiti.engine.impl.persistence.deploy.DeploymentManager;
 import org.activiti.engine.repository.ProcessDefinition;
 import org.activiti.spring.SpringProcessEngineConfiguration;
@@ -33,6 +34,16 @@ public class ProcessService {
 	public FlowElement getFlowElement(String processDefinitionId, String flowElementId) {
 		Process process = getProcessById(processDefinitionId);
 		return process.getFlowElement(flowElementId, true);
+	}
+	
+	public StartEvent getStartEvent(String processDefinitionId) {
+		Process process = getProcessById(processDefinitionId);
+		for (FlowElement flowElement : process.getFlowElements()) {
+			if (flowElement instanceof StartEvent) {
+				return (StartEvent) flowElement;
+			}
+		}
+		throw new IllegalArgumentException("not found element['endEvent'], processDefinitionId: " + processDefinitionId);
 	}
 	
 	public String getProcessDefinitionKey(String processDefinitionId) {
