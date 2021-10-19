@@ -55,69 +55,71 @@ public class ActivitiEventConfiguration {
 			activityEvent.setProcessDefinitionKey(processService.getProcessDefinitionKey(processDefinitionId));
 			activityEvent.setProcessInstanceId(entity.getProcessInstanceId());
 			
-			if (distance == 1) {
-				if (targetFlowElement instanceof EndEvent) {
-					// next activity is endEvent
-					EndEvent endEvent = (EndEvent) targetFlowElement;
-					activityEvent.setActivityId(endEvent.getId());
-					activityEvent.setActivityName(endEvent.getName());
-					activityEvent.setActivityType(endEvent.getClass().getSimpleName());
-					eventService.onProcessEndedEvent(activityEvent);
-				} else if (sourceFlowElement instanceof StartEvent) {
-					// prev activity is startEvent
-					StartEvent startEvent = (StartEvent) targetFlowElement;
-					activityEvent.setActivityId(startEvent.getId());
-					activityEvent.setActivityName(startEvent.getName());
-					activityEvent.setActivityType(startEvent.getClass().getSimpleName());
-					eventService.onProcessStartedEvent(activityEvent);
-				} else if (targetFlowElement instanceof Activity) {
-					// next activity is Activity
-					Activity activity = (Activity) targetFlowElement;
-					activityEvent.setActivityId(activity.getId());
-					activityEvent.setActivityName(activity.getName());
-					activityEvent.setActivityType(activity.getClass().getSimpleName());
-					eventService.onNextActivityEvent(activityEvent);
-				} else {
-					log.warn("ignore targetFlowElement[{}]", targetFlowElement.getClass().getSimpleName());
-				}
-			}
-			
-			if (distance > 1) {
-				log.warn("ignore targetFlowElement[{}], because normal operation will not be performed here", targetFlowElement.getClass().getSimpleName());
-			}
-			
-			if (distance == -1) {
-				if (targetFlowElement instanceof Activity) {
-					// prev activity is Activity
-					Activity activity = (Activity) targetFlowElement;
-					activityEvent.setActivityId(activity.getId());
-					activityEvent.setActivityName(activity.getName());
-					activityEvent.setActivityType(activity.getClass().getSimpleName());
-					eventService.onPrevActivityEvent(activityEvent);
-				} else {
-					log.warn("ignore targetFlowElement[{}]", targetFlowElement.getClass().getSimpleName());
-				}
-			}
-			
-			if (distance < -1) {
-				if (targetFlowElement instanceof Activity) {
-					// prev activity is Activity
-					Activity activity = (Activity) targetFlowElement;
-					activityEvent.setActivityId(activity.getId());
-					activityEvent.setActivityName(activity.getName());
-					activityEvent.setActivityType(activity.getClass().getSimpleName());
-					eventService.onBackedActivityEvent(activityEvent);
-				} else {
-					log.warn("ignore targetFlowElement[{}]", targetFlowElement.getClass().getSimpleName());
-				}
-			}
-			
-			if (distance == 0) {
-				log.error("process[processInstanceId={}] is wrong, because normal operation will not be performed here", entity.getProcessInstanceId());
-			}
-			
-			
+			onActivityEvent(entity, sourceFlowElement, targetFlowElement, distance, activityEvent);
 		};
+	}
+	
+	private void onActivityEvent(BPMNSequenceFlow entity, FlowElement sourceFlowElement, FlowElement targetFlowElement, int distance, ActivityEvent activityEvent) {
+		if (distance == 1) {
+			if (targetFlowElement instanceof EndEvent) {
+				// next activity is endEvent
+				EndEvent endEvent = (EndEvent) targetFlowElement;
+				activityEvent.setActivityId(endEvent.getId());
+				activityEvent.setActivityName(endEvent.getName());
+				activityEvent.setActivityType(endEvent.getClass().getSimpleName());
+				eventService.onProcessEndedEvent(activityEvent);
+			} else if (sourceFlowElement instanceof StartEvent) {
+				// prev activity is startEvent
+				StartEvent startEvent = (StartEvent) targetFlowElement;
+				activityEvent.setActivityId(startEvent.getId());
+				activityEvent.setActivityName(startEvent.getName());
+				activityEvent.setActivityType(startEvent.getClass().getSimpleName());
+				eventService.onProcessStartedEvent(activityEvent);
+			} else if (targetFlowElement instanceof Activity) {
+				// next activity is Activity
+				Activity activity = (Activity) targetFlowElement;
+				activityEvent.setActivityId(activity.getId());
+				activityEvent.setActivityName(activity.getName());
+				activityEvent.setActivityType(activity.getClass().getSimpleName());
+				eventService.onNextActivityEvent(activityEvent);
+			} else {
+				log.warn("ignore targetFlowElement[{}]", targetFlowElement.getClass().getSimpleName());
+			}
+		}
+		
+		if (distance > 1) {
+			log.warn("ignore targetFlowElement[{}], because normal operation will not be performed here", targetFlowElement.getClass().getSimpleName());
+		}
+		
+		if (distance == -1) {
+			if (targetFlowElement instanceof Activity) {
+				// prev activity is Activity
+				Activity activity = (Activity) targetFlowElement;
+				activityEvent.setActivityId(activity.getId());
+				activityEvent.setActivityName(activity.getName());
+				activityEvent.setActivityType(activity.getClass().getSimpleName());
+				eventService.onPrevActivityEvent(activityEvent);
+			} else {
+				log.warn("ignore targetFlowElement[{}]", targetFlowElement.getClass().getSimpleName());
+			}
+		}
+		
+		if (distance < -1) {
+			if (targetFlowElement instanceof Activity) {
+				// prev activity is Activity
+				Activity activity = (Activity) targetFlowElement;
+				activityEvent.setActivityId(activity.getId());
+				activityEvent.setActivityName(activity.getName());
+				activityEvent.setActivityType(activity.getClass().getSimpleName());
+				eventService.onBackedActivityEvent(activityEvent);
+			} else {
+				log.warn("ignore targetFlowElement[{}]", targetFlowElement.getClass().getSimpleName());
+			}
+		}
+		
+		if (distance == 0) {
+			log.error("process[processInstanceId={}] is wrong, because normal operation will not be performed here", entity.getProcessInstanceId());
+		}
 	}
 	
 	/**

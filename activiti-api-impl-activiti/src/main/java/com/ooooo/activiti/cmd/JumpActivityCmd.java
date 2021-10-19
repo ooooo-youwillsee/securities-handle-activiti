@@ -1,12 +1,10 @@
 package com.ooooo.activiti.cmd;
 
-import com.ooooo.activiti.config.JumpActivityConfiguration;
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;
 import org.activiti.bpmn.model.Activity;
-import org.activiti.bpmn.model.ExtensionAttribute;
 import org.activiti.bpmn.model.FlowNode;
 import org.activiti.bpmn.model.SequenceFlow;
 import org.activiti.engine.impl.interceptor.Command;
@@ -18,14 +16,12 @@ import org.apache.commons.lang3.RandomStringUtils;
 import static com.ooooo.activiti.cmd.CommonContextHelper.getCommandExecutor;
 import static com.ooooo.activiti.cmd.CommonContextHelper.getExecutionEntities;
 import static com.ooooo.activiti.cmd.CommonContextHelper.getFlowElement;
-import static com.ooooo.activiti.config.JumpActivityConfiguration.OUTGOING_FLOWS;
 import static org.apache.commons.beanutils.BeanUtils.cloneBean;
 
 /**
  * jump to the activity
  *
  * @author <a href="https://github.com/ooooo-youwillsee">ooooo</a>
- * @see JumpActivityConfiguration
  * @since 1.0.0
  */
 @AllArgsConstructor
@@ -55,19 +51,8 @@ public class JumpActivityCmd implements Command<Void> {
 			targetIncomingSequenceFlow.setSourceFlowElement(curFlowElement);
 			targetIncomingSequenceFlow.setSourceRef(curFlowElement.getId());
 			
-			// save outgoingFlows of the current flowElement in the Attributes
-			List<SequenceFlow> outgoingFlows = curFlowElement.getOutgoingFlows();
-			List<ExtensionAttribute> extensionAttributes = new ArrayList<>();
-			for (SequenceFlow outgoingFlow : outgoingFlows) {
-				ExtensionAttribute sequenceFlowIdAttribute = new ExtensionAttribute();
-				sequenceFlowIdAttribute.setValue(outgoingFlow.getId());
-				extensionAttributes.add(sequenceFlowIdAttribute);
-			}
-			curFlowElement.getAttributes().putIfAbsent(OUTGOING_FLOWS, extensionAttributes);
-			
-			// clear, then add new outgoingFlow
-			outgoingFlows.clear();
-			outgoingFlows.add(targetIncomingSequenceFlow);
+			// set new outgoingFlow
+			curFlowElement.setOutgoingFlows(Collections.singletonList(targetIncomingSequenceFlow));
 			
 			// next activity
 			CommandExecutor commandExecutor = getCommandExecutor(commandContext);
